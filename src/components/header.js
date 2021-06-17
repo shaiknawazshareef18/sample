@@ -6,7 +6,6 @@ import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import {useState} from 'react';
-import {useAuth} from '../hooks/useAuth';
 
 const styles = makeStyles( (theme) => ({
     title: {
@@ -25,8 +24,6 @@ const Header = props => {
     const handleClose = (value) => {
         setOpen(false);
     };
-
-    const {user, logout} = useAuth();
 
     return (
         <>  
@@ -47,28 +44,13 @@ const Header = props => {
                 >
                     About
                 </Button>
-                {user && (
-                    <>
-                        <Button
-                            color="inherit"
-                            startIcon={<AccountCircleIcon />}
-                            onClick={logout}
-                        >
-                            Logout
-                        </Button>
-                    </>
-                )}
-                {!user && (
-                    <>
-                        <Button
-                            color="inherit"
-                            startIcon={<AccountCircleIcon />}
-                            onClick={handleClickOpen}
-                        >
-                            Login
-                        </Button>
-                    </>
-                )}
+                <Button
+                    color="inherit"
+                    startIcon={<AccountCircleIcon />}
+                    onClick={handleClickOpen}
+                >
+                    Login
+                </Button>
             </Toolbar>
             </AppBar>
 
