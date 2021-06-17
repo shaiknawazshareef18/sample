@@ -5,7 +5,8 @@ import {AppBar, Toolbar, Typography, Button, makeStyles, Dialog, TextField, Dial
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { authentication } from "../firebase";
 
 const styles = makeStyles( (theme) => ({
     title: {
@@ -15,15 +16,55 @@ const styles = makeStyles( (theme) => ({
 
 const Header = props => {
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [user, setUser] = useState('');
     const {history} = props;
     const classes = styles();
     const [open, setOpen] = useState(false);
+
     const handleClickOpen = () => {
         setOpen(true);
     };
+
     const handleClose = (value) => {
         setOpen(false);
     };
+
+    const handleLogin = () => {
+        setErrorMessage('');
+        authentication
+            .signInWithEmailAndPassword(email, password)
+            .then(user => {
+                
+                if(authentication.currentUser.emailVerified){
+                    handleClose();
+                    console.log(user);
+                } else {
+                    setErrorMessage("Your account has not yet been verified, please check your email and verify.");
+                    handleLogout();
+                }
+            })
+            .catch(error => {
+                setErrorMessage(error.message);
+            });
+    };
+
+    const handleLogout = () => {
+        authentication.signOut().then(result => {
+            setUser('');
+        });
+    };
+
+    useEffect(() => {
+        const unsubscribe = authentication.onAuthStateChanged(user => {
+            setUser(user);
+          });
+      
+        // Cleanup subscription on unmount
+        return () => unsubscribe();
+    });
 
     return (
         <>  
@@ -44,33 +85,52 @@ const Header = props => {
                 >
                     About
                 </Button>
-                <Button
-                    color="inherit"
-                    startIcon={<AccountCircleIcon />}
-                    onClick={handleClickOpen}
-                >
-                    Login
-                </Button>
+                {user && (
+                    <>
+                        <Button
+                        color="inherit"
+                        startIcon={<AccountCircleIcon />}
+                        onClick={handleLogout}
+                        >
+                            Logout
+                        </Button>
+                    </>
+                )}
+                {!user && (
+                    <>
+                        <Button
+                        color="inherit"
+                        startIcon={<AccountCircleIcon />}
+                        onClick={handleClickOpen}
+                        >
+                            Login
+                        </Button>
+                    </>
+                )}
+                
             </Toolbar>
             </AppBar>
 
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
-                    <TextField 
+                    <Typography>{errorMessage}</Typography>
+                    <TextField
                         required 
                         fullWidth 
-                        autoFocus 
+                        autoFocus
                         variant="outlined"
                         margin="dense"
                         label="Email"
-                        type="email"/>
+                        type="email"
+                        onChange={(event) => setEmail(event.target.value)} />
                     <TextField
                         required
                         fullWidth
                         variant="outlined" 
                         margin="dense"
                         label="Password"
-                        type="password"/>
+                        type="password"
+                        onChange={(event) => setPassword(event.target.value)}/>
                     <Typography>
                         Don't have yet an account, 
                         <Link to="/register" onClick={handleClose}>register</Link> 
@@ -78,11 +138,11 @@ const Header = props => {
                     </Typography>
                 </DialogContent>
                 <DialogActions>
-                    <Button 
-                        onClick={handleClose}
+                    <Button
                         color="primary"
                         variant="contained"
                         style={{margin: "3%",marginTop: "0"}}
+                        onClick={handleLogin}
                     >
                         Login
                     </Button>

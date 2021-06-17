@@ -1,20 +1,75 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Typography, TextField, Box, Grid, Button, Checkbox, Link} from '@material-ui/core';
 import {Dialog, DialogTitle, DialogContent} from '@material-ui/core';
-
+import { authentication, firestore } from '../firebase';
 const Register = () => {
 
-    const [open, setOpen] = React.useState(false);
+    const [firstname, setFirstname] = useState(null);
+    const [middlename, setMiddlename] = useState(null);
+    const [lastname, setLastname] = useState(null);
+    const [email, setEmail] = useState(null);
+    const [mobilenumber, setMobilenumber] = useState(null);
+    const [birthdate, setBirthdate] = useState(null);
+    const [password, setPassword] = useState(null);
+    const [rePassword, setRePassword] = useState(null);
+    const [isTCApproved, setIsTCApproved] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+
+    const [open, setOpen] = useState(false);
     const handleClickOpen = () => {
         setOpen(true);
     };
     const handleClose = (value) => {
         setOpen(false);
     };
+    const handleRegister = () => {
+        setErrorMessage('');
+        
+        if(isTCApproved){
+            if(password === rePassword){
+                authentication.createUserWithEmailAndPassword(email, password)
+                .then(() => {
+                    firestore.collection('users')
+                    .doc(authentication.currentUser.uid)
+                    .set({
+                        "firstname": firstname,
+                        "middlename": middlename,
+                        "lastname": lastname,
+                        "mobilenumber": mobilenumber,
+                        "birthdate": birthdate
+                    })
+                    .then(
+                        authentication.currentUser.sendEmailVerification()
+                        .then(() => {
+                            alert('Account has been Created, Please Verify your email chuchu');
+                            authentication.signOut();
+                        })
+                        .catch(error => {
+                            setErrorMessage(error.message);
+                        })
+                    )
+                    .catch(error => {
+                        setErrorMessage(error.message);
+                    });
+                })
+                .catch(error => {
+                    setErrorMessage(error.message);
+                });
+
+            } else {
+                setErrorMessage("Password and Re-password does not match");
+            }
+
+        } else {
+            setErrorMessage("We cannot proceed if you did not agree with our terms and conditions");
+            handleClickOpen();
+        }
+    };
 
     return (
         <>
             <Box m={6}>
+                <Typography>{errorMessage}</Typography>
                 <Typography variant="h2" style={{fontWeight: "bolder"}}>Registration Page</Typography>
                 <Typography variant="body1">
                     Note: Lorem ipsum keme keme keme 48 years ano chuckie at ang shonget na ang ugmas at ang tanders ugmas ano jowabella
@@ -27,29 +82,86 @@ const Register = () => {
             <Box m={6}>
                 <Grid container spacing={4}>
                     <Grid container item xs={6}>
-                        <TextField required fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="First Name" placeholder="Juan" />
-                        <TextField fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Middle Name" placeholder="Dela" />
-                        <TextField required fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Last Name" placeholder="Cruz"/>
+                        <TextField 
+                            required 
+                            fullWidth 
+                            style={{marginBottom: "1.5%"}} 
+                            variant="outlined" 
+                            label="First Name" 
+                            placeholder="Juan"
+                            onChange={(event) => setFirstname(event.target.value)} />
+                        <TextField 
+                            fullWidth
+                            style={{marginBottom: "1.5%"}} 
+                            variant="outlined" 
+                            label="Middle Name" 
+                            placeholder="Dela"
+                            onChange={(event) => setMiddlename(event.target.value)} />
+                        <TextField 
+                            required 
+                            fullWidth 
+                            style={{marginBottom: "1.5%"}} 
+                            variant="outlined" 
+                            label="Last Name" 
+                            placeholder="Cruz"
+                            onChange={(event) => setLastname(event.target.value)}/>
                     </Grid>
                     <Grid container item xs={6}>
-                        <TextField type="email" required fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Email" placeholder="JuanDelaCruz@email.com" />
-                        <TextField fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Mobile Number" placeholder="091010101010" />
-                        <TextField type="date" fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Birthdate" placeholder="Dela" />
+                        <TextField 
+                            required
+                            fullWidth
+                            type="email" 
+                            style={{marginBottom: "1.5%"}} 
+                            variant="outlined" 
+                            label="Email" 
+                            placeholder="JuanDelaCruz@email.com"
+                            onChange={(event) => setEmail(event.target.value)}/>
+                        <TextField 
+                            fullWidth
+                            style={{marginBottom: "1.5%"}}
+                            variant="outlined"
+                            label="Mobile Number"
+                            placeholder="091010101010"
+                            onChange={(event) => setMobilenumber(event.target.value)}/>
+                        <TextField 
+                            fullWidth
+                            type="date" 
+                            style={{marginBottom: "1.5%"}}
+                            variant="outlined"
+                            label="Birthdate"
+                            placeholder="Dela"
+                            onChange={(event) => setBirthdate(event.target.valueAsDate)} />
                     </Grid>
                 </Grid>
             </Box>
 
             <Box m={6}>
-                <TextField type="password" required fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Password" placeholder="Password123" />
-                <TextField type="password" required fullWidth style={{marginBottom: "1.5%"}} variant="outlined" label="Re-type Password" placeholder="Password123" />
+                <TextField 
+                    required 
+                    fullWidth
+                    type="password" 
+                    style={{marginBottom: "1.5%"}}
+                    variant="outlined"
+                    label="Password"
+                    placeholder="Password123"
+                    onChange={(event) => setPassword(event.target.value)} />
+                <TextField 
+                    required
+                    fullWidth
+                    type="password"
+                    style={{marginBottom: "1.5%"}} 
+                    variant="outlined" 
+                    label="Re-type Password" 
+                    placeholder="Password123"
+                    onChange={(event) => setRePassword(event.target.value)} />
             </Box>
 
             <Box m={6}>
                 <Typography>
-                    <Checkbox name="checkedB" color="primary"/>
+                    <Checkbox name="checkedB" color="primary" onChange={() => isTCApproved ? setIsTCApproved(false) : setIsTCApproved(true) } />
                     I agree with the <Link onClick={handleClickOpen} style={{cursor: "pointer"}}>terms and conditions</Link> chuchuness bla bla.
                 </Typography>
-                <Button variant="contained" color="primary">Create Account</Button>
+                <Button variant="contained" color="primary" onClick={handleRegister}>Create Account</Button>
             </Box>
 
             <Dialog open={open} onClose={handleClose}>
