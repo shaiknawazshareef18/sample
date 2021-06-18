@@ -1,23 +1,32 @@
 import React from "react";
 import {withRouter, Link} from "react-router-dom";
-import LogoS from "../assets/logo_s.png"
-import {AppBar, Toolbar, Typography, Button, makeStyles, Dialog, TextField, DialogContent, DialogActions} from '@material-ui/core';
-import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import {AppBar, Toolbar, Typography, Button, makeStyles, Dialog,
+    TextField, DialogContent, DialogActions} from '@material-ui/core';
+import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded';
+import InfoIcon from '@material-ui/icons/InfoRounded';
+import AccountIcon from '@material-ui/icons/AccountCircle';
+
 
 import {useState, useEffect} from 'react';
 import { authentication } from "../firebase";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 
+import LogoS from "../assets/logo_s.png"
+
 const theme = createMuiTheme({
     palette: {
         primary: {
             main: '#D99818',
+            contrastText: '#FFFFFF',
         },
         secondary: {
             accent: '#898C26',
             main: '#FFF1DC',
-            contrastText: '#111111'
+            contrastText: '#111111',
+        },
+        transparent: {
+            main: '#FFFFFF',
+            contrastText: '#111111',
         },
         contrastThreshold: 3,
         tonalOffset:0.2,
@@ -33,8 +42,6 @@ const styles = makeStyles( (theme) => ({
         margin: 8,
     },
 }));
-
-
 
 const Header = props => {
 
@@ -91,7 +98,7 @@ const Header = props => {
     return (
         <> 
         <ThemeProvider theme={theme}>
-            <AppBar position="sticky" color="secondary">
+            <AppBar position="sticky" color="transparent">
             <Toolbar>
                 <>
                     <img src = {LogoS} alt="logo" className={classes.logo}/>
@@ -101,21 +108,31 @@ const Header = props => {
                     variant="h6"
                     onClick={()=>history.push('/')}
                     >
-                        Indigenous Artifacts Hub
+                        WEAVE<b>hub</b>
                     </Typography>
                 </>
+
                 <Button 
                     color="inherit"
-                    startIcon={<InfoRoundedIcon />}
+                    startIcon={<InfoIcon />}
                     onClick={()=>history.push('/about')}
                 >
                     About
                 </Button>
+
+                <Button 
+                    color="inherit"
+                    startIcon={<ContactUsIcon />}
+                    onClick={()=>history.push('/contactUs')}
+                >
+                    Contact Us
+                </Button>
+
                 {user && (
                     <>
                         <Button
                         color="inherit"
-                        startIcon={<AccountCircleIcon />}
+                        startIcon={<AccountIcon />}
                         onClick={handleLogout}
                         >
                             Logout
@@ -126,7 +143,7 @@ const Header = props => {
                     <>
                         <Button
                         color="inherit"
-                        startIcon={<AccountCircleIcon />}
+                        startIcon={<AccountIcon />}
                         onClick={handleClickOpen}
                         >
                             Login
