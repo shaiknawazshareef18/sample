@@ -12,7 +12,7 @@ const Home = props => {
 
     return (
         <>
-            <Container style={{padding: "7%"}}>
+            <Container style={{padding: "4%"}}>
                 <Grid container spacing={3}>
                     <Grid item xs={6}>
                         <CardMedia 
@@ -22,13 +22,11 @@ const Home = props => {
                             image = {InigenousPeopleImage}
                         />
                     </Grid>
-                    <Grid item xs={6} >
-                        <Typography variant="h3" align="center" style={{padding: "4%", fontWeight: "bolder"}}>A respository for storing indigenous artifacts</Typography>
+                    <Grid item xs={6}>
+                        <Typography variant="h1" color="primary" style={{paddingBottom: "4%",}}>
+                            WEAVE<b>hub</b></Typography>
                         <Typography gutterBottom>
-                            Lorem ipsum keme keme keme 48 years at nang effem at tamalis warla ng majubis shonga at jutay balaj balaj bokot at 
-                            nang chapter tamalis at jowabelles tanders mabaho buya bakit na mahogany sa shonget matod bakit ang juts 48 years
-                            mashumers intonses jowa sa ganda lang at ang makyonget chuckie paminta ano Mike kemerloo nang lorem ipsum keme keme 
-                            shala nang thunder at wasok.
+                            An online repository for the preservation of Cordilleran Weaving Artifacts
                         </Typography>              
                         <Button variant="outlined" color="primary" onClick={()=> history.push('/about')}>Learn More</Button>      
                     </Grid>
