@@ -23,6 +23,7 @@ const Home = props => {
                         />
                     </Grid>
                     <Grid item xs={6}>
+                        {/* Current progress */}
                         <Typography variant="h1" color="primary" style={{paddingBottom: "4%",}}>
                             WEAVE<b>hub</b></Typography>
                         <Typography gutterBottom>
