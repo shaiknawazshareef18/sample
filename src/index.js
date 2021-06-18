@@ -9,9 +9,12 @@ import Register from './pages/register';
 import About from './pages/about';
 import ContactUs from './pages/contactUs';
 import Error404 from './pages/error404';
+import Dashboard from './pages/dashboard';
+import Admin from './pages/admin';
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import ProtectedRoute from './components/protectedRoute';
 
 const App = () => {
 
@@ -25,7 +28,10 @@ const App = () => {
                     <Route exact path="/register" render={props => <Register {...props} />} />
                     <Route exact path="/about" render={props => <About {...props} />} />
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
+                    <ProtectedRoute exact path="/dashboard" component={Dashboard} isAuthenticated={true} isAdmin={false} />
+                    <ProtectedRoute exact path="/admin" component={Admin} isAuthenticated={true} isAdmin={false} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
+                    
                 </Switch>
             </Router>
             <Footer />

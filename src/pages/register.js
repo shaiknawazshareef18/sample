@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Typography, TextField, Box, Grid, Button, Checkbox, Link} from '@material-ui/core';
 import {Dialog, DialogTitle, DialogContent} from '@material-ui/core';
 import { authentication, firestore } from '../firebase';
-const Register = () => {
+const Register = props => {
 
     const [firstname, setFirstname] = useState(null);
     const [middlename, setMiddlename] = useState(null);
@@ -14,8 +14,8 @@ const Register = () => {
     const [rePassword, setRePassword] = useState(null);
     const [isTCApproved, setIsTCApproved] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-
     const [open, setOpen] = useState(false);
+    
     const handleClickOpen = () => {
         setOpen(true);
     };
@@ -36,7 +36,8 @@ const Register = () => {
                         "middlename": middlename,
                         "lastname": lastname,
                         "mobilenumber": mobilenumber,
-                        "birthdate": birthdate
+                        "birthdate": birthdate,
+                        "createdAt": new Date()
                     })
                     .then(
                         authentication.currentUser.sendEmailVerification()
@@ -89,6 +90,7 @@ const Register = () => {
                             variant="outlined" 
                             label="First Name" 
                             placeholder="Juan"
+                            value={firstname}
                             onChange={(event) => setFirstname(event.target.value)} />
                         <TextField 
                             fullWidth
@@ -96,6 +98,7 @@ const Register = () => {
                             variant="outlined" 
                             label="Middle Name" 
                             placeholder="Dela"
+                            value={middlename}
                             onChange={(event) => setMiddlename(event.target.value)} />
                         <TextField 
                             required 
@@ -104,6 +107,7 @@ const Register = () => {
                             variant="outlined" 
                             label="Last Name" 
                             placeholder="Cruz"
+                            value={lastname}
                             onChange={(event) => setLastname(event.target.value)}/>
                     </Grid>
                     <Grid container item xs={6}>
@@ -115,6 +119,7 @@ const Register = () => {
                             variant="outlined" 
                             label="Email" 
                             placeholder="JuanDelaCruz@email.com"
+                            value={email}
                             onChange={(event) => setEmail(event.target.value)}/>
                         <TextField 
                             fullWidth
@@ -122,6 +127,7 @@ const Register = () => {
                             variant="outlined"
                             label="Mobile Number"
                             placeholder="091010101010"
+                            value={mobilenumber}
                             onChange={(event) => setMobilenumber(event.target.value)}/>
                         <TextField 
                             fullWidth
@@ -130,6 +136,7 @@ const Register = () => {
                             variant="outlined"
                             label="Birthdate"
                             placeholder="Dela"
+                            value={birthdate}
                             onChange={(event) => setBirthdate(event.target.valueAsDate)} />
                     </Grid>
                 </Grid>
@@ -144,6 +151,7 @@ const Register = () => {
                     variant="outlined"
                     label="Password"
                     placeholder="Password123"
+                    value={password}
                     onChange={(event) => setPassword(event.target.value)} />
                 <TextField 
                     required
@@ -153,6 +161,7 @@ const Register = () => {
                     variant="outlined" 
                     label="Re-type Password" 
                     placeholder="Password123"
+                    value={rePassword}
                     onChange={(event) => setRePassword(event.target.value)} />
             </Box>
 

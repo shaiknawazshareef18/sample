@@ -53,20 +53,31 @@ const Header = props => {
     };
 
     const handleClose = (value) => {
+        clearLoginForm();
         setOpen(false);
     };
 
+    const clearLoginForm = () => {
+        setErrorMessage('');
+        setEmail('');
+        setPassword('');
+    }
+
     const handleLogin = () => {
         setErrorMessage('');
+        clearLoginForm();
         authentication
             .signInWithEmailAndPassword(email, password)
             .then(user => {
                 
                 if(authentication.currentUser.emailVerified){
+                    clearLoginForm();
                     handleClose();
-                    console.log(user);
+                    setUser(user);
+                    history.push('/dashboard');
                 } else {
                     setErrorMessage("Your account has not yet been verified, please check your email and verify.");
+                    clearLoginForm();
                     handleLogout();
                 }
             })
@@ -77,7 +88,9 @@ const Header = props => {
 
     const handleLogout = () => {
         authentication.signOut().then(result => {
+            clearLoginForm();
             setUser('');
+            history.push('/');
         });
     };
 
