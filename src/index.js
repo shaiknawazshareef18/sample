@@ -4,10 +4,10 @@ import ReactDom from 'react-dom';
 import Header from './components/header';
 import Footer from './components/footer';
 
-import Home from './components/home';
-import Register from './components/register';
-import About from './components/about';
-import Error404 from './components/error404';
+import Home from './pages/home';
+import Register from './pages/register';
+import About from './pages/about';
+import Error404 from './pages/error404';
 
 import CssBaseline from '@material-ui/core/CssBaseline'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';

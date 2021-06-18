@@ -1,6 +1,6 @@
 import React from 'react';
 import InigenousPeopleImage from '../assets/indigenous-people-vector.png';
-import SampleImages from './imageListSample';
+import SampleImages from '../components/imageListSample';
 
 import {Container, Divider, Grid, Box} from '@material-ui/core';
 import {Typography, CardMedia, Button} from '@material-ui/core';
