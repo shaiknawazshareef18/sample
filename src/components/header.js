@@ -20,11 +20,6 @@ const theme = createMuiTheme({
             contrastText: '#FFFFFF',
         },
         secondary: {
-            accent: '#898C26',
-            main: '#FFF1DC',
-            contrastText: '#111111',
-        },
-        transparent: {
             main: '#FFFFFF',
             contrastText: '#111111',
         },
@@ -98,7 +93,7 @@ const Header = props => {
     return (
         <> 
         <ThemeProvider theme={theme}>
-            <AppBar position="sticky" color="transparent">
+            <AppBar position="sticky" color="secondary" style={{paddingInline: "4%"}}>
             <Toolbar>
                 <>
                     <img src = {LogoS} alt="logo" className={classes.logo}/>
@@ -156,6 +151,11 @@ const Header = props => {
 
             <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
+                    <Typography variant="h4" style={{
+                        marginBottom: "4%",
+                    }}>
+                        Log in
+                    </Typography>
                     <Typography>{errorMessage}</Typography>
                     <TextField
                         required 
@@ -174,17 +174,26 @@ const Header = props => {
                         label="Password"
                         type="password"
                         onChange={(event) => setPassword(event.target.value)}/>
-                    <Typography>
-                        Don't have yet an account, 
-                        <Link to="/register" onClick={handleClose}>register</Link> 
-                        here.
+                    <Typography style={{marginTop: "4%"}}>
+                        Don't have an account yet?&nbsp;
+                        <Link to="/register" variant="body2" onClick={handleClose}>
+                            Register...
+                        </Link>
                     </Typography>
                 </DialogContent>
-                <DialogActions>
+                
+                <DialogActions style={{margin: "4%", marginTop: "0"}}>
+                    <Button
+                        color="primary"
+                        variant="outlined"
+                        onClick={handleClose}
+                    >
+                        Cancel
+                    </Button>
                     <Button
                         color="primary"
                         variant="contained"
-                        style={{margin: "3%",marginTop: "0"}}
+                        style={{marginLeft: "2%"}}
                         onClick={handleLogin}
                     >
                         Login

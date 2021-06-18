@@ -1,26 +1,5 @@
 import React from 'react';
 import {Grid, Typography} from '@material-ui/core';
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#D99818',
-            contrastText: '#FFFFFF',
-        },
-        secondary: {
-            accent: '#898C26',
-            main: '#FFF1DC',
-            contrastText: '#111111',
-        },
-        transparent: {
-            main: '#111111',
-            contrastText: '#FFFFFF',
-        },
-        contrastThreshold: 3,
-        tonalOffset:0.2,
-    },
-});
 
 const Footer = () => {
     return (
