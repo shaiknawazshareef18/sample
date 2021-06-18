@@ -4,14 +4,10 @@ import LogoS from "../assets/logo_s.png"
 import {AppBar, Toolbar, Typography, Button, makeStyles, Dialog, TextField, DialogContent, DialogActions} from '@material-ui/core';
 import InfoRoundedIcon from '@material-ui/icons/InfoRounded';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-<<<<<<< Updated upstream
 
 import {useState, useEffect} from 'react';
 import { authentication } from "../firebase";
-=======
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-import {useState} from 'react';
->>>>>>> Stashed changes
 
 const theme = createMuiTheme({
     palette: {
