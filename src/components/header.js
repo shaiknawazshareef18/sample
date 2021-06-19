@@ -6,7 +6,6 @@ import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded';
 import InfoIcon from '@material-ui/icons/InfoRounded';
 import AccountIcon from '@material-ui/icons/AccountCircle';
 
-
 import {useState, useEffect} from 'react';
 import { authentication } from "../firebase";
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
@@ -65,7 +64,6 @@ const Header = props => {
 
     const handleLogin = () => {
         setErrorMessage('');
-        clearLoginForm();
         authentication
             .signInWithEmailAndPassword(email, password)
             .then(user => {
@@ -77,7 +75,6 @@ const Header = props => {
                     history.push('/dashboard');
                 } else {
                     setErrorMessage("Your account has not yet been verified, please check your email and verify.");
-                    clearLoginForm();
                     handleLogout();
                 }
             })
@@ -88,7 +85,6 @@ const Header = props => {
 
     const handleLogout = () => {
         authentication.signOut().then(result => {
-            clearLoginForm();
             setUser('');
             history.push('/');
         });
@@ -98,8 +94,6 @@ const Header = props => {
         const unsubscribe = authentication.onAuthStateChanged(user => {
             setUser(user);
           });
-      
-        // Cleanup subscription on unmount
         return () => unsubscribe();
     });
 
