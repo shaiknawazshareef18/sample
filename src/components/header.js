@@ -1,33 +1,20 @@
-import React from "react";
-import {withRouter, Link} from "react-router-dom";
+// Other Functions
+import React from "react"
+import {withRouter, Link} from "react-router-dom"
+import {useState, useEffect} from 'react'
+
+// Designs
 import {AppBar, Toolbar, Typography, Button, makeStyles, Dialog,
-    TextField, DialogContent, DialogActions} from '@material-ui/core';
-import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded';
-import InfoIcon from '@material-ui/icons/InfoRounded';
-import AccountIcon from '@material-ui/icons/AccountCircle';
-
-import {useState, useEffect} from 'react';
-import { authentication } from "../firebase";
-import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
-
+    TextField, DialogContent, DialogActions} from '@material-ui/core'
+import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded'
+import InfoIcon from '@material-ui/icons/InfoRounded'
+import AccountIcon from '@material-ui/icons/AccountCircle'
 import LogoS from "../assets/logo_s.png"
 
-const theme = createMuiTheme({
-    palette: {
-        primary: {
-            main: '#D99818',
-            contrastText: '#FFFFFF',
-        },
-        secondary: {
-            main: '#FFFFFF',
-            contrastText: '#111111',
-        },
-        contrastThreshold: 3,
-        tonalOffset:0.2,
-    },
-});
+// Firebase 
+import { authentication } from "../firebase";
 
-const styles = makeStyles( (theme) => ({
+const styles = makeStyles({
     title: {
         flexGrow: 1,
     },
@@ -35,121 +22,108 @@ const styles = makeStyles( (theme) => ({
         maxWidth: 32,
         margin: 8,
     },
-}));
+})
 
-const Header = props => {
+function Header(props) {
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
-    const [user, setUser] = useState('');
-    const {history} = props;
-    const classes = styles();
-    const [open, setOpen] = useState(false);
+    // State Variables
+    const [email, setEmail] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [errorMessage, setErrorMessage] = useState(null)
+    const [user, setUser] = useState(null)
+    const [open, setOpen] = useState(false)
+    const {history} = props
+    const classes = styles()
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
+    // Functions
     const handleClose = (value) => {
-        clearLoginForm();
-        setOpen(false);
-    };
-
-    const clearLoginForm = () => {
-        setErrorMessage('');
-        setEmail('');
-        setPassword('');
+        clearLoginForm()
+        setOpen(false)
     }
-
+    const clearLoginForm = () => {
+        setErrorMessage(null)
+        setEmail(null)
+        setPassword(null)
+    }
     const handleLogin = () => {
-        setErrorMessage('');
+        setErrorMessage(null);
         authentication
             .signInWithEmailAndPassword(email, password)
             .then(user => {
-                
                 if(authentication.currentUser.emailVerified){
-                    clearLoginForm();
-                    handleClose();
-                    setUser(user);
-                    history.push('/dashboard');
+                    clearLoginForm()
+                    handleClose()
+                    setUser(user)
+                    history.push('/dashboard')
                 } else {
-                    setErrorMessage("Your account has not yet been verified, please check your email and verify.");
-                    handleLogout();
+                    setErrorMessage("Your account has not yet been verified, please check your email and verify.")
+                    handleLogout()
                 }
             })
             .catch(error => {
-                setErrorMessage(error.message);
-            });
-    };
-
+                setErrorMessage(error.message)
+            })
+    }
     const handleLogout = () => {
         authentication.signOut().then(result => {
-            setUser('');
-            history.push('/');
-        });
-    };
-
+            setUser(null)
+            history.push(null)
+        })
+    }
     useEffect(() => {
         const unsubscribe = authentication.onAuthStateChanged(user => {
-            setUser(user);
-          });
-        return () => unsubscribe();
-    });
+            setUser(user)
+          })
+        return () => unsubscribe()
+    },[])
 
     return (
         <> 
-        <ThemeProvider theme={theme}>
             <AppBar position="sticky" color="secondary" style={{paddingInline: "4%"}}>
             <Toolbar>
                 <>
-                    <img src = {LogoS} alt="logo" className={classes.logo}/>
-                    <Typography 
-                    style={{cursor: "pointer"}}
-                    className={classes.title}
-                    variant="h6"
-                    onClick={()=>history.push('/')}
-                    >
-                        WEAVE<b>hub</b>
-                    </Typography>
+                <img src = {LogoS} alt="logo" className={classes.logo}/>
+                <Typography 
+                style={{cursor: "pointer"}}
+                className={classes.title}
+                variant="h6"
+                onClick={()=>history.push('/')}
+                >WEAVE<b>hub</b>
+                </Typography>
                 </>
 
                 <Button 
                     color="inherit"
                     startIcon={<InfoIcon />}
                     onClick={()=>history.push('/about')}
-                >
-                    About
+                >About
                 </Button>
 
                 <Button 
                     color="inherit"
                     startIcon={<ContactUsIcon />}
                     onClick={()=>history.push('/contactUs')}
-                >
-                    Contact Us
+                >Contact Us
                 </Button>
 
                 {user && (
                     <>
-                        <Button
-                        color="inherit"
-                        startIcon={<AccountIcon />}
-                        onClick={handleLogout}
-                        >
-                            Logout
-                        </Button>
+                    <Button
+                    color="inherit"
+                    startIcon={<AccountIcon />}
+                    onClick={handleLogout}
+                    >Logout
+                    </Button>
                     </>
                 )}
                 {!user && (
                     <>
-                        <Button
-                        color="inherit"
-                        startIcon={<AccountIcon />}
-                        onClick={handleClickOpen}
-                        >
-                            Login
-                        </Button>
+                    <Button
+                    color="inherit"
+                    startIcon={<AccountIcon />}
+                    onClick={()=>setOpen(true)}
+                    > Login
+                    </Button>
                     </>
                 )}
                 
@@ -160,8 +134,7 @@ const Header = props => {
                 <DialogContent>
                     <Typography variant="h4" style={{
                         marginBottom: "4%",
-                    }}>
-                        Log in
+                    }}>Log in
                     </Typography>
                     <Typography>{errorMessage}</Typography>
                     <TextField
@@ -194,22 +167,19 @@ const Header = props => {
                         color="primary"
                         variant="outlined"
                         onClick={handleClose}
-                    >
-                        Cancel
+                    >Cancel
                     </Button>
                     <Button
                         color="primary"
                         variant="contained"
                         style={{marginLeft: "2%"}}
                         onClick={handleLogin}
-                    >
-                        Login
+                    >Login
                     </Button>
                 </DialogActions>
             </Dialog>
-            </ThemeProvider>
         </>
-    );
+    )
 }
 
-export default withRouter(Header);
+export default withRouter(Header)

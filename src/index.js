@@ -1,26 +1,42 @@
-import React from 'react';
-import ReactDom from 'react-dom';
-
-import Header from './components/header';
-import Footer from './components/footer';
-
-import Home from './pages/home';
-import Register from './pages/register';
-import About from './pages/about';
-import ContactUs from './pages/contactUs';
-import Error404 from './pages/error404';
-import Dashboard from './pages/dashboard';
-import Admin from './pages/admin';
-
-import CssBaseline from '@material-ui/core/CssBaseline'
+import React from 'react'
+import ReactDom from 'react-dom'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProtectedRoute from './components/protectedRoute';
 
-const App = () => {
+import Header from './components/header'
+import Footer from './components/footer'
+import Home from './pages/home'
+import Register from './pages/register'
+import About from './pages/about'
+import ContactUs from './pages/contactUs'
+import Error404 from './pages/error404'
+import Dashboard from './pages/dashboard'
+import Admin from './pages/admin'
 
+import CssBaseline from '@material-ui/core/CssBaseline'
+import { createMuiTheme, ThemeProvider } from '@material-ui/core';
+
+const theme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#D99818',
+            contrastText: '#FFFFFF',
+        },
+        secondary: {
+            main: '#FFFFFF',
+            contrastText: '#111111',
+        },
+        contrastThreshold: 3,
+        tonalOffset:0.2,
+    },
+})
+
+
+function App(){
     return (
         <>  
-            <CssBaseline />
+        <CssBaseline />
+        <ThemeProvider theme={theme}>
             <Router>
                 <Header />
                 <Switch>
@@ -31,13 +47,13 @@ const App = () => {
                     <ProtectedRoute exact path="/dashboard" component={Dashboard} isAuthenticated={true} isAdmin={false} />
                     <ProtectedRoute exact path="/admin" component={Admin} isAuthenticated={true} isAdmin={false} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
-                    
                 </Switch>
             </Router>
             <Footer />
+        </ThemeProvider>
         </>
-    );
+    )
 }
 
-ReactDom.render(<App />, document.getElementById('root'));
+ReactDom.render(<App />, document.getElementById('root'))
 

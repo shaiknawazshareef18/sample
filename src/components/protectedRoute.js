@@ -1,7 +1,7 @@
-import React from 'react';
-import { Route, Redirect } from 'react-router';
+import React from 'react'
+import { Route, Redirect } from 'react-router'
 
-const ProtectedRoute = ({isAuthenticated:isAuth, component:Component, isAdmin:isAdmin, ...rest}) => {
+function ProtectedRoute({isAuthenticated:isAuth, component:Component, isAdmin:isAdmin, ...rest}){
     return(
         <Route 
             {... rest}
@@ -13,7 +13,7 @@ const ProtectedRoute = ({isAuthenticated:isAuth, component:Component, isAdmin:is
                 }
             }}
         />
-    );
+    )
 }
 
-export default ProtectedRoute;
+export default ProtectedRoute
