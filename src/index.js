@@ -31,7 +31,6 @@ const theme = createMuiTheme({
     },
 })
 
-
 function App(){
     return (
         <>  

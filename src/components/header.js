@@ -14,7 +14,7 @@ import LogoS from "../assets/logo_s.png"
 // Firebase 
 import { authentication } from "../firebase";
 
-const styles = makeStyles({
+const styles = {
     title: {
         flexGrow: 1,
     },
@@ -22,70 +22,69 @@ const styles = makeStyles({
         maxWidth: 32,
         margin: 8,
     },
-})
+}
 
 function Header(props) {
-
-    // State Variables
-    const [email, setEmail] = useState(null)
-    const [password, setPassword] = useState(null)
-    const [errorMessage, setErrorMessage] = useState(null)
-    const [user, setUser] = useState(null)
-    const [open, setOpen] = useState(false)
     const {history} = props
-    const classes = styles()
+    // // State Variables
+    // const [email, setEmail] = useState(null)
+    // const [password, setPassword] = useState(null)
+    // const [errorMessage, setErrorMessage] = useState(null)
+    // const [user, setUser] = useState(null)
+    // const [open, setOpen] = useState(false)
+    // const classes = styles()
 
-    // Functions
-    const handleClose = (value) => {
-        clearLoginForm()
-        setOpen(false)
-    }
-    const clearLoginForm = () => {
-        setErrorMessage(null)
-        setEmail(null)
-        setPassword(null)
-    }
-    const handleLogin = () => {
-        setErrorMessage(null);
-        authentication
-            .signInWithEmailAndPassword(email, password)
-            .then(user => {
-                if(authentication.currentUser.emailVerified){
-                    clearLoginForm()
-                    handleClose()
-                    setUser(user)
-                    history.push('/dashboard')
-                } else {
-                    setErrorMessage("Your account has not yet been verified, please check your email and verify.")
-                    handleLogout()
-                }
-            })
-            .catch(error => {
-                setErrorMessage(error.message)
-            })
-    }
-    const handleLogout = () => {
-        authentication.signOut().then(result => {
-            setUser(null)
-            history.push(null)
-        })
-    }
-    useEffect(() => {
-        const unsubscribe = authentication.onAuthStateChanged(user => {
-            setUser(user)
-          })
-        return () => unsubscribe()
-    },[])
+    // // Functions
+    // const handleClose = (value) => {
+    //     clearLoginForm()
+    //     setOpen(false)
+    // }
+    // const clearLoginForm = () => {
+    //     setErrorMessage(null)
+    //     setEmail(null)
+    //     setPassword(null)
+    // }
+    // const handleLogin = () => {
+    //     setErrorMessage(null);
+    //     authentication
+    //         .signInWithEmailAndPassword(email, password)
+    //         .then(user => {
+    //             if(authentication.currentUser.emailVerified){
+    //                 clearLoginForm()
+    //                 handleClose()
+    //                 setUser(user)
+    //                 history.push('/dashboard')
+    //             } else {
+    //                 setErrorMessage("Your account has not yet been verified, please check your email and verify.")
+    //                 handleLogout()
+    //             }
+    //         })
+    //         .catch(error => {
+    //             setErrorMessage(error.message)
+    //         })
+    // }
+    // const handleLogout = () => {
+    //     authentication.signOut().then(result => {
+    //         setUser(null)
+    //         history.push(null)
+    //     })
+    // }
+    // useEffect(() => {
+    //     const unsubscribe = authentication.onAuthStateChanged(user => {
+    //         setUser(user)
+    //       })
+    //     return () => unsubscribe()
+    // },[])
 
     return (
         <> 
             <AppBar position="sticky" color="secondary" style={{paddingInline: "4%"}}>
             <Toolbar>
                 <>
-                <img src = {LogoS} alt="logo" className={classes.logo}/>
+                <img src = {LogoS} alt="logo" style={styles.logo}/>
                 <Typography 
                 style={{cursor: "pointer"}}
-                className={classes.title}
+                style={styles.title}
                 variant="h6"
                 onClick={()=>history.push('/')}
                 >WEAVE<b>hub</b>
@@ -93,19 +92,18 @@ function Header(props) {
                 </>
 
                 <Button 
-                    color="inherit"
                     startIcon={<InfoIcon />}
                     onClick={()=>history.push('/about')}
                 >About
                 </Button>
 
                 <Button 
-                    color="inherit"
                     startIcon={<ContactUsIcon />}
                     onClick={()=>history.push('/contactUs')}
-                >Contact Us
+                >
+                    Contact Us
                 </Button>
-
+{/* 
                 {user && (
                     <>
                     <Button
@@ -125,12 +123,12 @@ function Header(props) {
                     > Login
                     </Button>
                     </>
-                )}
+                )} */}
                 
             </Toolbar>
             </AppBar>
 
-            <Dialog open={open} onClose={handleClose}>
+            {/* <Dialog open={open} onClose={handleClose}>
                 <DialogContent>
                     <Typography variant="h4" style={{
                         marginBottom: "4%",
@@ -177,7 +175,7 @@ function Header(props) {
                     >Login
                     </Button>
                 </DialogActions>
-            </Dialog>
+            </Dialog> */}
         </>
     )
 }

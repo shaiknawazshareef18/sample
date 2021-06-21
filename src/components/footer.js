@@ -1,18 +1,47 @@
 import React from 'react'
-import {Grid, Typography} from '@material-ui/core'
+import {Button, Grid, Typography} from '@material-ui/core'
+
+const styles = {
+    background:{
+        backgroundColor: '#000000',
+        padding: '1%',
+    },
+    text: {
+        marginBottom: "1%",
+    }
+}
 
 function Footer(){
     return (
-        <Grid item style={{backgroundColor: '#111111', padding: "2%", alignItems: "center"}}>
-            <Typography align="center" style={{color: "#FFFFFF"}}>
+        <Grid container justify="center" style={styles.background} >
+            <Grid item>
+                <Typography align="center" color="secondary">
                     © WeaveHub 2021
-            </Typography>
-            <Typography align="center" style={{color: "#FFFFFF", marginBottom: "1%"}}>
-                    Made by the UC CS Team
-            </Typography>
-            <Typography align="center" style={{color: '#FFFFFF', fontSize: "10px"}}>
-                Vector images from Vecteezy.com
-            </Typography>
+                </Typography>
+                <Grid container xs justify="center" style={styles.background} >
+                    <Grid item>
+                        <Typography align="center" color="secondary" style={styles.text}>
+                            Made by the UC CS Team
+                        </Typography>
+                    </Grid>
+                    <Grid item
+                    style={{
+                        marginBottom: '3%',
+                    }}>
+                        <Button size="small" color="primary"
+                        >
+                            Admin Login
+                        </Button>
+                    </Grid>
+                </Grid>
+
+                <Typography align="center" color="secondary"
+                style={{
+                    fontWeight: 'lighter',
+                }}>
+                    Vector images from Vecteezy.com
+                </Typography>
+            </Grid>
         </Grid>
     )
 }

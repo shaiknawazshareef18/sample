@@ -10,23 +10,44 @@ const useStyles = makeStyles((theme) => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
-    backgroundColor: theme.palette.background.paper,
+    margin: '1%',
   },
   gridList: {
-    width: 1500,
-    height: 450,
+    flexWrap: 'nowrap',
+    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+    transform: 'translateZ(0)',
   },
 }));
 
-export default function ImageGridList() {
+/**
+ * The example data is structured as follows:
+ *
+ * import image from 'path/to/image.jpg';
+ * [etc...]
+ *
+ * const tileData = [
+ *   {
+ *     img: image,
+ *     title: 'Image',
+ *     author: 'author',
+ *   },
+ *   {
+ *     [etc...]
+ *   },
+ * ];
+ */
+export default function SingleLineGridList() {
   const classes = useStyles();
 
   return (
     <div className={classes.root}>
-      <GridList cellHeight={160} className={classes.gridList} cols={5}>
+      <GridList className={classes.gridList} cols={5}>
         {tileData.map((tile) => (
-          <GridListTile key={tile.img} cols={tile.cols || 1}>
-            <img src={tile.img} alt={tile.title} />
+          <GridListTile key={tile.img}>
+            <img
+              src={tile.img}
+              alt={tile.title}
+              />
           </GridListTile>
         ))}
       </GridList>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Container, Grid, CardMedia, Typography } from '@material-ui/core'
-import InigenousPeopleImage from '../assets/indigenous-people-vector.png'
+import InigenousPeopleImage from '../assets/indigenousPeople.png'
 
 function About() {
     return (
