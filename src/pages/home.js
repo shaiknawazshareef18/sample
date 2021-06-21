@@ -13,19 +13,16 @@ import KalingaImg from '../assets/weaves-samples/Kalinga.jpg'
 import KankanaeyImg from '../assets/weaves-samples/Kankanaey.jpg'
 import TinggianImg from '../assets/weaves-samples/Tinggian.jpg'
 
-import { makeStyles } from '@material-ui/core/styles';
 import {
     Typography,
     Button,
     Container,
-    Divider,
     Grid,
-    Box,
     Card,
     CardActionArea,
     CardActions,
     CardContent,
-    CardMedia
+    CardMedia,
 } from '@material-ui/core'
 
 
@@ -64,6 +61,7 @@ const styles = {
 }
 
 function Home(props){
+    
     const {history} = props
 
     return (
@@ -499,64 +497,7 @@ function Home(props){
                 <SampleImages/>
             </Container>
         </Grid>
-{/* 
-        <Container>
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Bontoc</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Ibaloi</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Ifugao</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Isneg</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Kalinga</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Kankanaey</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-            <Divider />
-            <Box p={5}>
-                <Typography variant="h3" gutterBottom>Tinggian</Typography>
-                <SampleImages />
-                <Box textAlign='center'>
-                    <Button style={{margin: "3%"}} color="primary" variant="contained">See More</Button>
-                </Box>
-            </Box>
-        </Container> */}
+
         </>
     );
 }

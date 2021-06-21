@@ -1,30 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import { withRouter } from 'react-router';
 import { Typography, Box, Container, Button, Toolbar} from '@material-ui/core';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@material-ui/core';
+import { Table, TableBody, TableCell, TableContainer, TableHead } from '@material-ui/core';
 import {firestore, authentication} from '../firebase';
-
 
 function Dashboard() {
 
     const [generatedTicket, setGeneratedTicket] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-    const [tickets, setTickets] = useState([]);
-    
-    useEffect(() => {
-        const ticketsResults = [];
-        function subscriber () {
-            firestore.collection('tickets').where('userID','==','Q3VgLoRVo1fVV7lI6GnRAKyz1Lz2').get()
-            .then((querySnapshot) => {
-                querySnapshot.forEach((doc) => {
-                    ticketsResults.push({...doc.data(), key: doc.id});
-                });
-                setTickets(ticketsResults);
-                console.log(tickets)
-            })
-        }
-        return () => subscriber();
-    }, [])
 
     function generateTicket() {
         var ticket = '';
@@ -71,7 +54,7 @@ function Dashboard() {
                             <TableCell><b>Status</b></TableCell>
                         </TableHead>
                         <TableBody>
-                            {tickets.length > 0 ? 
+                            {/* {tickets.length > 0 ? 
                                 tickets.map((tickets) => {
                                     <TableRow key={tickets.key}>
                                     <TableCell component="th" scope="row">
@@ -81,7 +64,7 @@ function Dashboard() {
                                     <TableCell>{tickets.comments}</TableCell>
                                     <TableCell>{tickets.status}</TableCell>
                                 </TableRow>
-                                }) : <h1>No Data</h1>}
+                                }) : <h1>No Data</h1>} */}
                         </TableBody>
                     </Table>
                 </TableContainer>

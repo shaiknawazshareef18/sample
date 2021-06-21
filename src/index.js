@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import ReactDom from 'react-dom'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import ProtectedRoute from './components/protectedRoute';
@@ -32,6 +32,9 @@ const theme = createMuiTheme({
 })
 
 function App(){
+
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+
     return (
         <>  
         <CssBaseline />
@@ -43,8 +46,8 @@ function App(){
                     <Route exact path="/register" render={props => <Register {...props} />} />
                     <Route exact path="/about" render={props => <About {...props} />} />
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
-                    <ProtectedRoute exact path="/dashboard" component={Dashboard} isAuthenticated={true} isAdmin={false} />
-                    <ProtectedRoute exact path="/admin" component={Admin} isAuthenticated={true} isAdmin={false} />
+                    <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} auth={isAuthenticated} {...props} />} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>
