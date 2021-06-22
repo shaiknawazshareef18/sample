@@ -1,7 +1,6 @@
 import React from 'react'
 import { Container, Grid, CardMedia, Typography } from '@material-ui/core'
 
-import InigenousPeopleImage from '../assets/indigenousPeople.png'
 import BGImage from '../assets/mainContainerBG.png'
 import CITCSCHED from '../assets/citcs-ched-b.png'
 import Logo from '../assets/logo_w_b.png'
@@ -31,6 +30,7 @@ function About() {
                 <Grid item xs="4">
                     <Grid container justify="center" style={styles.titleContainer}>
                         <img
+                            alt='logo'
                             src={Logo}
                             style={{
                                 paddingTop: "3%",

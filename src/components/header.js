@@ -52,7 +52,7 @@ function Header(props) {
                         <Typography style={styles.spacer}/>
                     </>
                     <Button
-                        startIcon={<img src={LogoHunt} height="32"/>}
+                        startIcon={<img alt='LogoHunt' src={LogoHunt} height="32"/>}
                         onClick={()=>history.push('/weavehunt')}>
                             WEAVEhunt
                     </Button>
