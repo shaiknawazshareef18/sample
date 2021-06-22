@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Link, Container, Grid, CardMedia, TextField, Typography } from '@material-ui/core'
 import ITPeople from '../assets/contact-us.png'
 import BGImage from '../assets/mainContainerBG-large.png'
+import { Dialog, DialogTitle, DialogContent} from '@material-ui/core'
+import PrivacyPolicy from '../components/privacyPolicy'
 
 const styles = {
     background: {
@@ -14,6 +16,9 @@ const styles = {
 }
 
 function ContactUs() {
+
+    const [openDialog, setOpenDialog] = useState(false)
+
     return (
         <>
         <Grid container style={styles.background}>
@@ -67,6 +72,7 @@ function ContactUs() {
                                 href="#"
                                 variant="button"
                                 onClick={() => {
+                                    setOpenDialog(true)
                                     console.log("Privacy policy clicked.")
                                 }}> Privacy Policy
                             </Link>
@@ -85,6 +91,13 @@ function ContactUs() {
                 </Container>
             </Grid>
         </Grid>
+
+        <Dialog open={openDialog} onClose={()=>setOpenDialog(false)}>
+            <DialogTitle><b>PRIVACY POLICY</b></DialogTitle>
+            <DialogContent>
+                <PrivacyPolicy />
+            </DialogContent>
+        </Dialog>
         
         </>
     )

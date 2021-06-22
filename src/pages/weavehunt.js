@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Button, Link, Container, Grid, CardMedia, TextField, Typography } from '@material-ui/core'
+import {Dialog, DialogTitle, DialogContent} from '@material-ui/core'
 import ConstructionPeople from '../assets/underConstruction.png'
 import BGImage from '../assets/mainContainerBG-large.png'
+import PrivacyPolicy from '../components/privacyPolicy'
 
 const styles = {
     background: {
@@ -14,6 +16,9 @@ const styles = {
 }
 
 function WeaveHunt () {
+
+    const [open, setOpen] = useState(false)
+
     return (
         <>
         <Grid container style={styles.background}>
@@ -68,7 +73,7 @@ function WeaveHunt () {
                                 href="#"
                                 variant="button"
                                 onClick={() => {
-                                    console.log("Privacy policy clicked.")
+                                    setOpen(true)
                                 }}> Privacy Policy
                             </Link>
                         </>
@@ -86,6 +91,13 @@ function WeaveHunt () {
                 </Container>
             </Grid>
         </Grid>
+
+        <Dialog open={open} onClose={()=>setOpen(false)}>
+            <DialogTitle><b>PRIVACY POLICY</b></DialogTitle>
+            <DialogContent>
+                <PrivacyPolicy />
+            </DialogContent>
+        </Dialog>
         
         </>
     )

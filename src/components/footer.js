@@ -80,6 +80,7 @@ function Footer(){
                         Close
                 </Button>
                 <Button
+                    onClick={handleClose}
                     color="primary"
                     variant="contained">
                         Contact Admin

@@ -45,12 +45,14 @@ function About() {
                 </Grid>
                     <Grid item xs>
                         <Typography gutterBottom variant="h3">
-                            A respository for preserving indigenous weaving artifacts</Typography>
+                            A respository for preserving indigenous weaving artifacts
+                        </Typography>
                         <Typography>
-                            Lorem ipsum keme keme keme 48 years at nang effem at tamalis warla ng majubis shonga at jutay balaj balaj bokot at 
-                            nang chapter tamalis at jowabelles tanders mabaho buya bakit na mahogany sa shonget matod bakit ang juts 48 years
-                            mashumers intonses jowa sa ganda lang at ang makyonget chuckie paminta ano Mike kemerloo nang lorem ipsum keme keme 
-                            shala nang thunder at wasok.
+                            WeaveHub is an open-source website created with the aim of preserving 
+                            the weaving patterns of Cordillera's 7 ethnolinguistic groups, these are 
+                            Bontoc, Ibaloi, Ifugao, Isneg, Kalinga, Kankanaey, and Tinggian
+                            It contains digitized images of the different weaving textiles or patterns
+                            of the said groups.
                         </Typography>
                     </Grid>
                 </Grid>

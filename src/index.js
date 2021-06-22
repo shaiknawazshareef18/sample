@@ -51,7 +51,7 @@ function App(){
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
                     <Route exact path="/weavehunt" render={props => <WeaveHunt {...props} />} />
                     <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
-                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={true} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>
