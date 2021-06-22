@@ -24,7 +24,7 @@ function WeaveHunt () {
                         <>
                             <>
                             <Typography variant="h3">
-                                &#x2699; Under development 
+                                Under Development 
                             </Typography>
                             <Typography style={{marginBottom: "8%",}}>
                                 This feature is still under construction.
