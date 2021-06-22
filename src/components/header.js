@@ -13,7 +13,9 @@ import {authentication} from '../firebase'
 
 const styles = {
     title: {
-        cursor: "pointer",
+        cursor: 'pointer',
+    },
+    spacer: {
         flexGrow: 1,
     },
     logo: {
@@ -47,9 +49,9 @@ function Header(props) {
                             onClick={()=>history.push('/')}>
                                 WEAVE<b>hub</b>
                         </Typography>
+                        <Typography style={styles.spacer}/>
                     </>
                     <Button
-                        size="large"
                         startIcon={<img src={LogoHunt} height="32"/>}
                         onClick={()=>history.push('/about')}>
                             WEAVEhunt
