@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import {Button, Grid, Typography, Dialog} from '@material-ui/core'
-import { DialogContent } from '@material-ui/core'
+import { DialogContent, DialogActions } from '@material-ui/core'
 
 const styles = {
     background:{
@@ -9,12 +9,24 @@ const styles = {
     },
     text: {
         marginBottom: "1%",
-    }
+    },
 }
+
+
 
 function Footer(){
 
+    
+
     const [openDialog, setOpenDialog] = useState(false)
+    
+    const handleClickOpen = () => {
+        setOpenDialog(true);
+      };
+    
+      const handleClose = () => {
+        setOpenDialog(false);
+      };
 
     return (
         <>
@@ -48,13 +60,32 @@ function Footer(){
             </Grid>
         </Grid>
 
-        <Dialog open={openDialog} onClose={()=>setOpenDialog(false)}>
+        <Dialog
+            open={openDialog}
+            onClose={handleClose}>
+
             <DialogContent>
-                <Typography variant='h6'>
-                    Admin Note: Please contact the administrator for instructions in opening the admin page.
-                    Thank you :)
+                <Typography gutterBottom variant="h3">
+                    Note:
+                </Typography>
+                <Typography gutterBottom>
+                    Please contact the administrator for instructions in opening the admin page.
                 </Typography>
             </DialogContent>
+            <DialogActions>
+                <Button
+                    onClick={handleClose}
+                    color="primary"
+                    variant="outlined">
+                        Close
+                </Button>
+                <Button
+                    color="primary"
+                    variant="contained">
+                        Contact Admin
+                </Button>
+            </DialogActions>
+
         </Dialog>
         </>
     )

@@ -31,7 +31,7 @@ const styles = {
         backgroundImage: `url(${BGImage})`,
         alignItems: 'center',
         padding: '2%',
-        paddingLeft: '5%',
+        paddingLeft: '10%',
     },
     secondaryContainer: {
         padding: '1%',
@@ -67,7 +67,7 @@ function Home(props){
     return (
         <>
             <Grid container style={styles.mainContainer} justify="center">
-                <Grid container xs >
+                <Grid container xs>
                     <Grid item style={{marginRight: '3%'}}>
                         <CardMedia 
                             component="img"
