@@ -3,7 +3,7 @@ import React from "react"
 import {withRouter} from "react-router-dom"
 
 // Designs
-import {Avatar, AppBar, Toolbar, Typography, Button, Link} from '@material-ui/core'
+import {AppBar, Toolbar, Typography, Button} from '@material-ui/core'
 import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded'
 import InfoIcon from '@material-ui/icons/InfoRounded'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -53,7 +53,7 @@ function Header(props) {
                     </>
                     <Button
                         startIcon={<img src={LogoHunt} height="32"/>}
-                        onClick={()=>history.push('/about')}>
+                        onClick={()=>history.push('/weavehunt')}>
                             WEAVEhunt
                     </Button>
 

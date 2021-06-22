@@ -13,6 +13,8 @@ import Error404 from './pages/error404'
 import Dashboard from './pages/dashboard'
 import Admin from './pages/admin'
 
+import WeaveHunt from './pages/weavehunt'
+
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
@@ -47,6 +49,7 @@ function App(){
                     <Route exact path="/register" render={props => <Register {...props} />} />
                     <Route exact path="/about" render={props => <About {...props} />} />
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
+                    <Route exact path="/weavehunt" render={props => <WeaveHunt {...props} />} />
                     <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
                     <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
