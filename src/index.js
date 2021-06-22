@@ -34,20 +34,21 @@ const theme = createMuiTheme({
 function App(){
 
     const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
 
     return (
         <>  
         <CssBaseline />
         <ThemeProvider theme={theme}>
             <Router>
-                <Header />
+                <Header user={user} />
                 <Switch>
                     <Route exact path="/" render={props => <Home {...props} />} />
                     <Route exact path="/register" render={props => <Register {...props} />} />
                     <Route exact path="/about" render={props => <About {...props} />} />
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
-                    <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} auth={isAuthenticated} {...props} />} />
-                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} />
+                    <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>

@@ -6,7 +6,9 @@ import {withRouter} from "react-router-dom"
 import {AppBar, Toolbar, Typography, Button} from '@material-ui/core'
 import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded'
 import InfoIcon from '@material-ui/icons/InfoRounded'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import LogoS from "../assets/logo_s.png"
+import {authentication} from '../firebase'
 
 const styles = {
     title: {
@@ -19,8 +21,16 @@ const styles = {
     },
 }
 
+
 function Header(props) {
-    const {history} = props
+    const {history, user} = props
+
+    function handleLogout(){
+        authentication.signOut().then(()=>{
+            history.push('/admin')
+        }) 
+    }
+
     return (
         <> 
             <AppBar position="sticky" color="secondary" style={{paddingInline: "4%"}}>
@@ -47,7 +57,14 @@ function Header(props) {
                 >
                     Contact Us
                 </Button>
-                
+                {user && (
+                    <Button 
+                    startIcon={<AccountCircleIcon />}
+                    onClick={handleLogout}
+                    >
+                        Logout
+                    </Button>
+                )}
             </Toolbar>
             </AppBar>
         </>

@@ -13,9 +13,14 @@ function Admin(props) {
         setErrorMessage(props.auth)
         if(email !== null || password !== null){
             authentication.signInWithEmailAndPassword(email,password)
-            .then((user) => {
+            .then(() => {
                 props.setAuth(true)
-                history.push('/admin/dashboard')
+                props.setUser(authentication.currentUser.uid)
+                if(props.user === null){
+                    setErrorMessage('Please try again')
+                } else {
+                    history.push('/admin/dashboard')
+                }
             })
             .catch((error) => setErrorMessage(error.message))
         } else {
