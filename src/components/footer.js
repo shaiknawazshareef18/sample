@@ -12,21 +12,9 @@ const styles = {
     },
 }
 
-
-
 function Footer(){
 
-    
-
     const [openDialog, setOpenDialog] = useState(false)
-    
-    const handleClickOpen = () => {
-        setOpenDialog(true);
-      };
-    
-      const handleClose = () => {
-        setOpenDialog(false);
-      };
 
     return (
         <>
@@ -35,7 +23,7 @@ function Footer(){
                 <Typography align="center" color="secondary">
                     © WeaveHub 2021
                 </Typography>
-                <Grid container xs justify="center" style={styles.background} >
+                <Grid container justify="center" style={styles.background} >
                     <Grid item>
                         <Typography align="center" color="secondary" style={styles.text}>
                             Made by the UC CS Team
@@ -62,7 +50,7 @@ function Footer(){
 
         <Dialog
             open={openDialog}
-            onClose={handleClose}>
+            onClose={()=>setOpenDialog(false)}>
 
             <DialogContent>
                 <Typography gutterBottom variant="h3">
@@ -74,12 +62,13 @@ function Footer(){
             </DialogContent>
             <DialogActions>
                 <Button
-                    onClick={handleClose}
+                    onClick={()=>setOpenDialog(false)}
                     color="primary"
                     variant="outlined">
                         Close
                 </Button>
                 <Button
+                    onClick={()=>setOpenDialog(false)}
                     color="primary"
                     variant="contained">
                         Contact Admin
