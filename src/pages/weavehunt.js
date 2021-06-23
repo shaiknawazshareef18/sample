@@ -29,27 +29,31 @@ function WeaveHunt () {
         setErrorMessage(null)
         setWaiting(true)
         if(email === '' || concern === ''){
+            setWaiting(false)
             setErrorMessage('Please fill in all required fields')
         } else {
             var templateParams = {
                 message: concern,
                 reply_to: email,
-                to_name: email
+                to_name: email,
+                page: 'Weave Hunt',
+                title_header: 'Weave Hub x Weave Hunt',
+                logo: 'https://firebasestorage.googleapis.com/v0/b/uc-cs-proj.appspot.com/o/Parts%2FWeaveHuntLogo.png?alt=media&token=252372ef-76d2-4c97-b6cd-3b48278ca8be'
             }
             EmailJS.send('service_aj5o5yz', 'template_8ixnn2t', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
             .then(function(response){
-                EmailJS.send('service_aj5o5yz', 'template_j6m8nu5', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
+                EmailJS.send('service_aj5o5yz', 'template_3kux3tr', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
                 .then(function(response){
                     setOpen2(true)
                     setEmail('')
                     setConcern('')
                     setWaiting(false)
                 }, function(error){
-                    setErrorMessage(error)
+                    setErrorMessage(error.text)
                     setWaiting(false)
                 })
             }, function(error){
-                setErrorMessage(error)
+                setErrorMessage(error.text)
                 setWaiting(false)
             })
         }
