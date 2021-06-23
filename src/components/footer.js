@@ -23,7 +23,7 @@ function Footer(){
                 <Typography align="center" color="secondary">
                     © WeaveHub 2021
                 </Typography>
-                <Grid container xs justify="center" style={styles.background} >
+                <Grid container justify="center" style={styles.background} >
                     <Grid item>
                         <Typography align="center" color="secondary" style={styles.text}>
                             Made by the UC CS Team
