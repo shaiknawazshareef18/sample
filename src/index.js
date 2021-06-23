@@ -28,6 +28,10 @@ const theme = createMuiTheme({
             main: '#FFFFFF',
             contrastText: '#111111',
         },
+        error: {
+            main: '#E57373',
+            contrastText: '#111111',
+        },
         contrastThreshold: 3,
         tonalOffset:0.2,
     },

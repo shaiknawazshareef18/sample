@@ -1,6 +1,21 @@
 import React, {useState} from 'react'
-import { Typography, TextField, Box, Button } from '@material-ui/core'
+import {Grid, Container, CardMedia, Link, Typography, TextField, Button } from '@material-ui/core'
 import {authentication} from '../firebase/'
+import BGImage from '../assets/mainContainerBG-large.png'
+import AdminImg from '../assets/admin.png'
+
+const styles = {
+    background: {
+        backgroundImage: `url(${BGImage})`,
+        height: '78vh',
+    },
+    backgroundOverlay: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    gridItemPadding: {
+        padding: '5%',
+    }
+}
 
 function Admin(props) {
 
@@ -24,35 +39,83 @@ function Admin(props) {
             })
             .catch((error) => setErrorMessage(error.message))
         } else {
-            setErrorMessage('Cannot Submit Empty Field/s')
+            setErrorMessage('Cannot submit empty fields')
         }
     }
 
     return(
-        <>
-        <Box m={4}>
-            <Typography variant='h4'>Admin Page </Typography>
-        </Box>
-        {/* TODO: Make UI for the Admin login page */}
-        <Box m={6}>
-            {/* Error Message Below */}
-            <Typography>{errorMessage}</Typography>
-            <TextField 
-                fullWidth 
-                variant='outlined'
-                label='Email'
-                type='email' 
-                onChange={(event)=>setEmail(event.target.value)}/>
-            <TextField 
-                fullWidth 
-                variant='outlined' 
-                label='Password'
-                type='password'
-                onChange={(event)=>setPassword(event.target.value)}/>
-            <Button variant='contained' onClick={handleLogin}>Login</Button>
-        </Box>
-        </>
+        <Grid container style={styles.background}>
+            <Grid container alignItems="center" style={styles.backgroundOverlay}>
+                <Container>
+                    <Grid container>
+                        <Grid item xs style={styles.gridItemPadding}>
+                            <>
+                                <Typography variant='h3'>
+                                    Administration Login
+                                </Typography>
+                                <Typography
+                                    style={{
+                                        marginBottom: '6%',
+                                    }}>
+                                    Please enter your credentials to manage this repository.
+                                </Typography>
+                                <TextField
+                                    fullWidth
+                                    variant="outlined"
+                                    label='Email'
+                                    type='email' 
+                                    onChange={(event)=>setEmail(event.target.value)}/>
+                                
+                                <Typography color="error">{errorMessage}</Typography>
+                                
+                                <TextField 
+                                    fullWidth
+                                    variant='outlined' 
+                                    label='Password'
+                                    type='password'
+                                    onChange={(event)=>setPassword(event.target.value)}
+                                    style={{
+                                        marginTop: '2%',
+                                    }}/>
+                                <Grid container xs>
+
+                                    <Button
+                                        color="primary"
+                                        size="large"
+                                        variant='contained'
+                                        onClick={handleLogin}
+                                        style={{
+                                            marginTop: '4%',
+                                            marginBottom: '8%',
+                                        }}>
+                                        Login
+                                    </Button>
+
+                                </Grid>
+
+                                <Link 
+                                    href="#"
+                                    variant="button"
+                                    onClick={() => {
+                                        console.log("Privacy policy clicked.")
+                                    }}> Privacy Policy
+                                </Link>
+                                
+                            </>
+                        </Grid>
+
+                        <Grid item xs>
+                            <CardMedia 
+                                component="img"
+                                title = "AdminImg"
+                                alt = "AdminImg"
+                                image = {AdminImg}/>
+                        </Grid>
+                    </Grid>
+                </Container>
+            </Grid>
+        </Grid>
     )
 }
 
-export default Admin;
+export default Admin

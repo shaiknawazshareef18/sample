@@ -1,18 +1,49 @@
 import React from 'react'
-import { Typography, Box } from '@material-ui/core'
+import {Grid, Container, Typography, Button, Link} from '@material-ui/core'
 
-function Error404() {
+import BGImage from '../assets/mainContainerBG-large.png'
+
+const styles = {
+    background: {
+        backgroundImage: `url(${BGImage})`,
+        height: '78vh',
+    },
+    backgroundOverlay: {
+        backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    },
+    linkPointer: {
+        cursor: 'pointer',
+    },
+}
+
+function Error404(props) {
+    const {history} = props
+
     return (
-        <>  
-        <Typography variant="h1" style={{fontWeight: "bolder", margin: "5%"}} align="center">Error 404</Typography>
-        <Box m={10}>
-            <Typography variant="h4">Hi There,</Typography>
-            <Typography variant="h4">
-                It Looks like the page you are trying to access is not available. If you feel this is an error,
-                please report it immediately at IngigenousArtifactsHub@gmail.com
-            </Typography>
-        </Box>
-        </>
+        
+        <Grid container style={styles.background}>
+            <Grid container alignItems="center" style={styles.backgroundOverlay}>
+                <Container>
+                    <Typography variant="h1" style={{margin: "5%"}} align="center">Error 404</Typography>
+                        <Typography gutterBottom variant="h3">
+                            Hi there!
+                        </Typography>
+                        <Typography variant="h5">
+                            It looks like the page you are trying to access is not available. If you think that this shouldn't have happened,
+                            please report it immediately by <Link style={styles.linkPointer} onClick={()=>history.push('/contactUs')}>contacting us</Link>.
+                        </Typography>
+                        <Button
+                            variant="outlined"
+                            color="primary"
+                            style={{
+                                marginTop: '5%',
+                            }}
+                            onClick={()=>history.push('./')}>
+                            Go back to Home
+                        </Button>
+                </Container>
+            </Grid>
+        </Grid>
     )
 }
 
