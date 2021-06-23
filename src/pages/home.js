@@ -25,7 +25,6 @@ import {
     CardMedia,
 } from '@material-ui/core'
 
-
 const styles = {
     mainContainer: {
         backgroundImage: `url(${BGImage})`,
@@ -67,7 +66,7 @@ function Home(props){
     return (
         <>
             <Grid container style={styles.mainContainer} justify="center">
-                <Grid container xs>
+                <Grid item container xs>
                     <Grid item style={{marginRight: '3%'}}>
                         <CardMedia 
                             component="img"
@@ -125,7 +124,7 @@ function Home(props){
         <Grid container justify="center">
 
             {/* Bontoc */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -159,7 +158,7 @@ function Home(props){
             </Grid>
 
             {/* Ibaloi */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -193,7 +192,7 @@ function Home(props){
             </Grid>
 
             {/* Ifugao */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -227,7 +226,7 @@ function Home(props){
             </Grid>
 
             {/* Isneg */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -264,7 +263,7 @@ function Home(props){
         <Grid container justify="center">
 
             {/* Kalinga */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -298,7 +297,7 @@ function Home(props){
             </Grid>
 
             {/* Kankanaey */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -332,7 +331,7 @@ function Home(props){
             </Grid>
 
             {/* Tinggian */}
-            <Grid item xs="2" style={styles.cardDisplay.cardMargin}>
+            <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
                 <Card style={styles.cardDisplay.root}>
                     <CardActionArea>
                         
@@ -397,7 +396,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='bontoc'/>
             </Container>
 
             <Container style={styles.secondaryContainer}>
@@ -413,7 +412,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='ibaloi'/>
             </Container>
 
             <Container style={styles.secondaryContainer}>
@@ -429,7 +428,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='ifugao'/>
             </Container>
 
             <Container style={styles.secondaryContainer}>
@@ -445,7 +444,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='isneg'/>
             </Container>
 
             <Container style={styles.secondaryContainer}>
@@ -461,7 +460,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='kalinga'/>
             </Container>
 
 
@@ -478,7 +477,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='kankanaey' />
             </Container>
 
             <Container style={styles.secondaryContainer}>
@@ -494,7 +493,7 @@ function Home(props){
                         </Button>
                     </Grid>
                 </Grid>
-                <SampleImages/>
+                <SampleImages data='tinggian'/>
             </Container>
         </Grid>
 

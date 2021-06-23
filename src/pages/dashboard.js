@@ -16,6 +16,9 @@ function Dashboard(props) {
     const [chosenTicket, setChosenTicket] = useState(null)
     const [placedComments, setPlacedComments] = useState(null)
     const [errorMessage, setErrorMessage] = useState(null)
+    const [errorMessage2, setErrorMessage2] = useState(null)
+    const [category, setCategory] = useState('')
+    const [author, setAuthor] = useState('')
 
     function handleSelectedImages(event) {
         if(event.target.files){
@@ -25,24 +28,42 @@ function Dashboard(props) {
     }
 
     function handleUpload() {
-        setOpenDialog(false)
+        setErrorMessage2(null)
+        if(category === '' || author === ''){
+            setErrorMessage2('Please fill in all required forms')
+            setOpenDialog(false)
+        } else {
+            setOpenDialog(false)
+            setCategory('')
+            setAuthor('')
+        }
     }
 
     function handleApprove() {
         firestore.collection('tickets').doc(chosenDocument).update({
+            approverID: props.user,
             comments: placedComments,
             status: 'approved'
         })
-        .then(setOpenDialog2(false))
+        .then(() => {
+            setOpenDialog2(false)
+            setChosenDocument(null)
+            setPlacedComments(null)
+        })
         .catch((error)=>setErrorMessage(error.message))
     }
 
     function handleReject() {
         firestore.collection('tickets').doc(chosenDocument).update({
+            approverID: props.user,
             comments: placedComments,
             status: 'rejected'
         })
-        .then(setOpenDialog3(false))
+        .then(() => {
+            setOpenDialog3(false)
+            setChosenDocument(null)
+            setPlacedComments(null)
+        })
         .catch((error)=>setErrorMessage(error.message))
     }
 
@@ -67,10 +88,11 @@ function Dashboard(props) {
         <>
         <Box m={4}>
             <Typography variant='h4'>Upload Weaving Pattern Image/s</Typography>
+            <Typography>{errorMessage2}</Typography>
             <input type='file' multiple onChange={handleSelectedImages}/>
             <br/>
-            <TextField label='Category' variant='outlined'/>
-            <TextField label='Owner' variant='outlined' />
+            <TextField label='Category' variant='outlined' value={category} onChange={(event)=>setCategory(event.target.value)}/>
+            <TextField label='Author' variant='outlined' value={author} onChange={(event)=>setAuthor(event.target.value)}/>
             <Button variant='contained' onClick={()=>setOpenDialog(true)}>Upload</Button>
             <Typography>Selected Images</Typography>
             {selectedImages.map((image) => (
@@ -127,7 +149,11 @@ function Dashboard(props) {
                 <Button onClick={handleUpload}>Proceed</Button>
             </DialogActions>
         </Dialog>
-        <Dialog open={openDialog2} onClose={()=>setOpenDialog2(false)}>
+        <Dialog open={openDialog2} onClose={()=>{
+            setOpenDialog2(false)
+            setChosenDocument(null)
+            setPlacedComments(null)
+        }}>
             <DialogTitle>Approve Request ({chosenTicket})</DialogTitle>
             <DialogContent>
                 <Typography>{errorMessage}</Typography>
@@ -146,7 +172,11 @@ function Dashboard(props) {
                 <Button onClick={handleApprove}>Proceed</Button>
             </DialogActions>
         </Dialog>
-        <Dialog open={openDialog3} onClose={()=>setOpenDialog3(false)}>
+        <Dialog open={openDialog3} onClose={()=>{
+            setOpenDialog3(false)
+            setChosenDocument(null)
+            setPlacedComments(null)
+        }}>
             <DialogTitle>Reject Request ({chosenTicket})</DialogTitle>
             <DialogContent>
                 <Typography>{errorMessage}</Typography>

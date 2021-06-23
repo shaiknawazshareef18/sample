@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import {Grid, Container, CardMedia, Link, Typography, TextField, Button } from '@material-ui/core'
+import {Dialog, DialogTitle, DialogContent} from '@material-ui/core'
 import {authentication} from '../firebase/'
 import BGImage from '../assets/mainContainerBG-large.png'
 import AdminImg from '../assets/admin.png'
+import PrivacyPolicy from '../components/privacyPolicy'
 
 const styles = {
     background: {
@@ -20,6 +22,7 @@ const styles = {
 function Admin(props) {
 
     const [errorMessage, setErrorMessage] = useState(false)
+    const [open, setOpen] = useState(false)
     const [email, setEmail] = useState(null)
     const [password, setPassword] = useState(null)
     const {history} = props
@@ -44,6 +47,7 @@ function Admin(props) {
     }
 
     return(
+        <>
         <Grid container style={styles.background}>
             <Grid container alignItems="center" style={styles.backgroundOverlay}>
                 <Container>
@@ -94,10 +98,9 @@ function Admin(props) {
                                 </Grid>
 
                                 <Link 
-                                    href="#"
                                     variant="button"
                                     onClick={() => {
-                                        console.log("Privacy policy clicked.")
+                                        setOpen(true)    
                                     }}> Privacy Policy
                                 </Link>
                                 
@@ -115,6 +118,13 @@ function Admin(props) {
                 </Container>
             </Grid>
         </Grid>
+        <Dialog open={open} onClose={()=>setOpen(false)}>
+        <DialogTitle><b>PRIVACY POLICY</b></DialogTitle>
+        <DialogContent>
+            <PrivacyPolicy />
+        </DialogContent>
+        </Dialog>
+        </>
     )
 }
 
