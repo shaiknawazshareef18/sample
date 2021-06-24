@@ -1,15 +1,8 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import GridList from '@material-ui/core/GridList'
 import GridListTile from '@material-ui/core/GridListTile'
-
-import Bontoc from '../data/bontoc'
-import Ibaloi from '../data/ibaloi'
-import Ifugao from '../data/ifugao'
-import Isneg from '../data/isneg'
-import Kalinga from '../data/kalinga'
-import Kankanaey from '../data/kankanaey'
-import Tinggian from '../data/tinggian'
+import {firestore} from '../firebase'
 
 const useStyles = makeStyles({
   root: {
@@ -27,16 +20,107 @@ const useStyles = makeStyles({
 
 export default function SingleLineGridList(props) {
   const classes = useStyles();
+  const [bontoc, setBontoc] = useState([])
+  const [ibaloi, setIbaloi] = useState([])
+  const [ifugao, setIfugao] = useState([])
+  const [isneg, setIsneg] = useState([])
+  const [kalinga, setKalinga] = useState([])
+  const [kankanaey, setKankanaey] = useState([])
+  const [tinggian, setTinggian] = useState([]) 
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Bontoc').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setBontoc(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Ibaloi').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setIbaloi(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Ifugao').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setIfugao(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Isneg').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setIsneg(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Kalinga').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setKalinga(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Kankanaey').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setKankanaey(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
+
+  useEffect(()=>{
+    const unsubsribe = firestore.collection('Tinggian').orderBy('createdAt').limit(11)
+      .onSnapshot((querySnapshot) => {
+        setTinggian(querySnapshot.docs.map((doc)=> ({
+          key: doc.id,
+          url: doc.data().imageURL,
+          title: doc.data().title
+        })))
+      })
+    return () => unsubsribe
+  },[])
 
   return (
     <div className={classes.root}>
       <GridList className={classes.gridList} cols={5}>
         {
           props.data === 'bontoc' && (
-            Bontoc.map((tile) => (
-              <GridListTile key={tile.img}>
+            bontoc.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -45,10 +129,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'ibaloi' && (
-            Ibaloi.map((tile) => (
-              <GridListTile key={tile.img}>
+            ibaloi.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -57,10 +141,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'ifugao' && (
-            Ifugao.map((tile) => (
-              <GridListTile key={tile.img}>
+            ifugao.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -69,10 +153,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'isneg' && (
-            Isneg.map((tile) => (
-              <GridListTile key={tile.img}>
+            isneg.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -81,10 +165,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'kalinga' && (
-            Kalinga.map((tile) => (
-              <GridListTile key={tile.img}>
+            kalinga.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -93,10 +177,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'kankanaey' && (
-            Kankanaey.map((tile) => (
-              <GridListTile key={tile.img}>
+            kankanaey.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>
@@ -105,10 +189,10 @@ export default function SingleLineGridList(props) {
         }
         {
           props.data === 'tinggian' && (
-            Tinggian.map((tile) => (
-              <GridListTile key={tile.img}>
+            tinggian.map((tile) => (
+              <GridListTile key={tile.key}>
                 <img
-                  src={tile.img}
+                  src={tile.url}
                   alt={tile.title}
                   />
               </GridListTile>

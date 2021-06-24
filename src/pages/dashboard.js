@@ -2,7 +2,7 @@ import React, {useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 import { Typography, Box, Button,TextField } from '@material-ui/core';
 import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
-import {firestore} from '../firebase';
+import {firestore, storage} from '../firebase';
 import { Dialog, DialogContent, DialogTitle, DialogActions} from '@material-ui/core';
 
 function Dashboard(props) {
@@ -22,20 +22,56 @@ function Dashboard(props) {
 
     function handleSelectedImages(event) {
         if(event.target.files){
-            const images = Array.from(event.target.files).map((file)=>file['name'])
-            setSelectedImages(images) 
+            const images = Array.from(event.target.files).map((file)=>(
+                {
+                    name: file['name'],
+                    file: file,
+                    key: file['lastMpdified']
+                }
+            ))
+            setSelectedImages(images)
         }
     }
 
     function handleUpload() {
         setErrorMessage2(null)
-        if(category === '' || author === ''){
+        if(category === '' || author === '' || selectedImages.length <= 0){
             setErrorMessage2('Please fill in all required forms')
             setOpenDialog(false)
         } else {
-            setOpenDialog(false)
-            setCategory('')
-            setAuthor('')
+            selectedImages.map((image) => {
+                const uploadTask = storage.ref(category+'/'+image.name).put(image.file)
+                uploadTask.on("state_changed", 
+                    snapshot => {},
+                    error => {
+                        setErrorMessage2(error.message)
+                    },
+                    () => {
+                        storage.ref(category)
+                        .child(image.name)
+                        .getDownloadURL()
+                        .then(url => {
+                            firestore.collection(category).add({
+                                createdAt: new Date(),
+                                imageURL: url,
+                                category: category,
+                                author: author,
+                                title: image.name,
+                                userID: 'admin'
+                            })
+                            .then(() => {
+                                setOpenDialog(false)
+                                setSelectedImages([])
+                                setCategory('')
+                                setAuthor('')
+                            })
+                            .catch((error) => {
+                                setErrorMessage2(error.message)
+                            })
+                        })
+                    })
+                console.log(image.file)
+            })
         }
     }
 
@@ -96,7 +132,9 @@ function Dashboard(props) {
             <Button variant='contained' onClick={()=>setOpenDialog(true)}>Upload</Button>
             <Typography>Selected Images</Typography>
             {selectedImages.map((image) => (
-                <Typography>{image}</Typography>
+                <TableRow key={image.key}>
+                    <Typography>{image.name}</Typography>
+                </TableRow>
             ))}
         </Box>
         <Box m={4}>
@@ -113,7 +151,7 @@ function Dashboard(props) {
                     {
                         tickets.map((ticket) => (
                             <TableRow key={ticket.id}>
-                                <TableCell component='th' scope='row'>{ticket.ticketID}</TableCell>
+                                <TableCell>{ticket.ticketID}</TableCell>
                                 <TableCell>{ticket.date}</TableCell>
                                 <TableCell>{ticket.comments}</TableCell>
                                 <TableCell>{ticket.status}</TableCell>

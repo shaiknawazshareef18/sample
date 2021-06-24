@@ -61,7 +61,12 @@ const styles = {
 
 function Home(props){
     
-    const {history} = props
+    const {history, setCategory} = props
+
+    function handleGallery(category) {
+        setCategory(category)
+        history.push('/gallery')
+    }
 
     return (
         <>
@@ -150,7 +155,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Bontoc')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -184,7 +189,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Ibaloi')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -218,7 +223,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Ifugao')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -252,7 +257,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Isneg')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -289,7 +294,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Kalinga')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -323,7 +328,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Kankanaey')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -357,7 +362,7 @@ function Home(props){
 
                     </CardActionArea>
                     <CardActions>
-                        <Button size="small" color="primary">
+                        <Button size="small" color="primary" onClick={()=>handleGallery('Tinggian')}>
                         View Gallery
                         </Button>
                     </CardActions>
@@ -391,7 +396,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Bontoc')}>
                             See all
                         </Button>
                     </Grid>
@@ -407,7 +412,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Ibaloi')}>
                             See all
                         </Button>
                     </Grid>
@@ -423,7 +428,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Ifugao')}>
                             See all
                         </Button>
                     </Grid>
@@ -439,7 +444,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Isneg')}>
                             See all
                         </Button>
                     </Grid>
@@ -455,7 +460,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Kalinga')}>
                             See all
                         </Button>
                     </Grid>
@@ -472,7 +477,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Kankanaey')}>
                             See all
                         </Button>
                     </Grid>
@@ -488,7 +493,7 @@ function Home(props){
                         </Typography>
                     </Grid>
                     <Grid item>
-                        <Button variant="outlined" color="secondary">
+                        <Button variant="outlined" color="secondary" onClick={()=>handleGallery('Tinggian')}>
                             See all
                         </Button>
                     </Grid>

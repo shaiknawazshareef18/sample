@@ -12,6 +12,7 @@ import ContactUs from './pages/contactUs'
 import Error404 from './pages/error404'
 import Dashboard from './pages/dashboard'
 import Admin from './pages/admin'
+import Gallery from './pages/gallery';
 
 import WeaveHunt from './pages/weavehunt'
 
@@ -39,8 +40,9 @@ const theme = createMuiTheme({
 
 function App(){
 
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [user, setUser] = useState(null);
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [selectedCategory, setSelectedCategory] = useState(null)
+    const [user, setUser] = useState(null)
 
     return (
         <>  
@@ -49,14 +51,15 @@ function App(){
             <Router>
                 <Header user={user} />
                 <Switch>
-                    <Route exact path="/" render={props => <Home {...props} />} />
+                    <Route exact path="/" render={props => <Home {...props} setCategory={setSelectedCategory} />} />
                     <Route exact path="/register" render={props => <Register {...props} />} />
                     <Route exact path="/about" render={props => <About {...props} />} />
                     <Route exact path="/contactUs" render={props => <ContactUs {...props} />} />
                     <Route exact path="/weavehunt" render={props => <WeaveHunt {...props} />} />
+                    <Route exact path="/gallery" render={props => <Gallery {...props} category={selectedCategory}  />} />
                     <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
                     {/* CHANGE isAuthenticated to True to BYPASS login in admin from isAuthenticated below  */}
-                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={true} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>
