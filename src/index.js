@@ -10,7 +10,7 @@ import Register from './pages/register'
 import About from './pages/about'
 import ContactUs from './pages/contactUs'
 import Error404 from './pages/error404'
-import Dashboard from './pages/dashboard'
+import Dashboard from './pages/dashboard3'
 import Admin from './pages/admin'
 import Gallery from './pages/gallery';
 
@@ -59,11 +59,13 @@ function App(){
                     <Route exact path="/gallery" render={props => <Gallery {...props} category={selectedCategory}  />} />
                     <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
                     {/* CHANGE isAuthenticated to True to BYPASS login in admin from isAuthenticated below  */}
-                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={true} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>
-            <Footer />
+            {
+                // !user && (<Footer />)
+            }
         </ThemeProvider>
         </>
     )

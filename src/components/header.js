@@ -40,7 +40,7 @@ function Header(props) {
             <AppBar
                 position="sticky"
                 color="secondary"
-                style={{paddingInline: "4%"}}>
+                style={{paddingInline: "4%", zIndex: 12001}}>
                 <Toolbar>
                     <>
                         <img src = {LogoS} alt="logo" style={styles.logo}/>
