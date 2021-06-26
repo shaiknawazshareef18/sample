@@ -38,19 +38,11 @@ function ContactUs() {
                 to_name: email,
                 page: 'Weave Hub',
                 title_header: 'Weave Hub',
-                logo: process.env.REACT_APP_WEAVEHUB_LOGO
+                logo: 'https://firebasestorage.googleapis.com/v0/b/uc-cs-proj.appspot.com/o/ESSENTIALS%2FWeaveHubLogo.png?alt=media&token=171dd46d-8936-4763-aa6e-75dc990c665b'
             }
-            EmailJS.send(
-                process.env.REACT_APP_EMAILJS_SERVICEID, 
-                process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE, 
-                templateParams, 
-                process.env.REACT_APP_EMAILJS_USERID)
+            EmailJS.send('service_aj5o5yz', 'template_8ixnn2t', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
             .then(function(response){
-                EmailJS.send(
-                    process.env.REACT_APP_EMAILJS_SERVICEID, 
-                    process.env.REACT_APP_EMAILJS_USER_TEMPLATE, 
-                    templateParams, 
-                    process.env.REACT_APP_EMAILJS_USERID)
+                EmailJS.send('service_aj5o5yz', 'template_3kux3tr', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
                 .then(function(response){
                     setOpenDialog2(true)
                     setEmail('')
