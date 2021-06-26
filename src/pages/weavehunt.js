@@ -38,11 +38,19 @@ function WeaveHunt () {
                 to_name: email,
                 page: 'Weave Hunt',
                 title_header: 'Weave Hub x Weave Hunt',
-                logo: 'https://firebasestorage.googleapis.com/v0/b/uc-cs-proj.appspot.com/o/ESSENTIALS%2FWeaveHuntLogo.png?alt=media&token=c5bad129-edfd-4499-9cdf-dbf3963880f3'
+                logo: process.env.REACT_APP_WEAVEHUNT_LOGO
             }
-            EmailJS.send('service_aj5o5yz', 'template_8ixnn2t', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
+            EmailJS.send(
+                process.env.REACT_APP_EMAILJS_SERVICEID, 
+                process.env.REACT_APP_EMAILJS_ADMIN_TEMPLATE, 
+                templateParams, 
+                process.env.REACT_APP_EMAILJS_USERID)
             .then(function(response){
-                EmailJS.send('service_aj5o5yz', 'template_3kux3tr', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
+                EmailJS.send(
+                    process.env.REACT_APP_EMAILJS_SERVICEID,
+                    process.env.REACT_APP_EMAILJS_USER_TEMPLATE,
+                    templateParams,
+                    process.env.REACT_APP_EMAILJS_USERID)
                 .then(function(response){
                     setOpen2(true)
                     setEmail('')
