@@ -49,7 +49,7 @@ function App(){
         <CssBaseline />
         <ThemeProvider theme={theme}>
             <Router>
-                <Header user={user} />
+                <Header user={user} setUser={setUser}/>
                 <Switch>
                     <Route exact path="/" render={props => <Home {...props} setCategory={setSelectedCategory} />} />
                     <Route exact path="/register" render={props => <Register {...props} />} />
@@ -59,7 +59,7 @@ function App(){
                     <Route exact path="/gallery" render={props => <Gallery {...props} category={selectedCategory}  />} />
                     <Route exact path="/admin" render={props => <Admin setAuth={setIsAuthenticated} setUser={setUser} user={user} {...props} />} />
                     {/* CHANGE isAuthenticated to True to BYPASS login in admin from isAuthenticated below  */}
-                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={true} user={user} />
+                    <ProtectedRoute exact path="/admin/dashboard" component={Dashboard} isAuthenticated={isAuthenticated} user={user} />
                     <Route exact path="*" render={props => <Error404 {...props} />} />
                 </Switch>
             </Router>

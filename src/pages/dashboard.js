@@ -54,10 +54,9 @@ function Dashboard(props) {
                             firestore.collection(category).add({
                                 createdAt: new Date(),
                                 imageURL: url,
-                                category: category,
                                 author: author,
                                 title: image.name,
-                                userID: 'admin'
+                                userID: props.user
                             })
                             .then(() => {
                                 setOpenDialog(false)
@@ -77,9 +76,10 @@ function Dashboard(props) {
 
     function handleApprove() {
         firestore.collection('tickets').doc(chosenDocument).update({
-            approverID: props.user,
+            adminID: props.user,
             comments: placedComments,
-            status: 'approved'
+            status: 'approved',
+            administeredAt: new Date()
         })
         .then(() => {
             setOpenDialog2(false)
@@ -91,9 +91,10 @@ function Dashboard(props) {
 
     function handleReject() {
         firestore.collection('tickets').doc(chosenDocument).update({
-            approverID: props.user,
+            adminID: props.user,
             comments: placedComments,
-            status: 'rejected'
+            status: 'rejected',
+            administeredAt: new Date()
         })
         .then(() => {
             setOpenDialog3(false)

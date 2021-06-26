@@ -26,10 +26,11 @@ const styles = {
 
 
 function Header(props) {
-    const {history, user} = props
+    const {history, user, setUser} = props
 
     function handleLogout(){
         authentication.signOut().then(()=>{
+            setUser(null)
             history.push('/admin')
         }) 
     }

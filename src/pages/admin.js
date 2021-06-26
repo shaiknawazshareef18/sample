@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {Grid, Container, CardMedia, Link, Typography, TextField, Button } from '@material-ui/core'
 import {Dialog, DialogTitle, DialogContent} from '@material-ui/core'
-import {authentication} from '../firebase/'
+import {authentication, firestore} from '../firebase/'
 import BGImage from '../assets/mainContainerBG-large.png'
 import AdminImg from '../assets/admin.png'
 import PrivacyPolicy from '../components/privacyPolicy'
@@ -32,13 +32,25 @@ function Admin(props) {
         if(email !== null || password !== null){
             authentication.signInWithEmailAndPassword(email,password)
             .then(() => {
-                props.setAuth(true)
-                props.setUser(authentication.currentUser.uid)
-                if(props.user === null){
-                    setErrorMessage('Please try again')
-                } else {
-                    history.push('/admin/dashboard')
-                }
+                const uid = authentication.currentUser.uid
+                firestore.collection('users').doc(uid).get().then((doc)=>{
+                    if(doc.data().status === 'admin'){
+                        props.setAuth(true)
+                        props.setUser(uid)
+                        history.push('/admin/dashboard')
+                    } else {
+                        firestore.collection('reports').add({
+                            'userID': uid,
+                            'status': 'attempt to login in the admin page',
+                            'recordedAt': new Date()
+                        })
+                        setErrorMessage(
+                            'You are not an admin, your account has been reported and will undergo for review, if you see this as an error, contact the developers immediately'
+                        )
+                    }
+                }).catch((error)=>{
+                    setErrorMessage(error.message)
+                })
             })
             .catch((error) => setErrorMessage(error.message))
         } else {
