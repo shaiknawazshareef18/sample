@@ -38,7 +38,7 @@ function WeaveHunt () {
                 to_name: email,
                 page: 'Weave Hunt',
                 title_header: 'Weave Hub x Weave Hunt',
-                logo: 'https://firebasestorage.googleapis.com/v0/b/uc-cs-proj.appspot.com/o/Parts%2FWeaveHuntLogo.png?alt=media&token=252372ef-76d2-4c97-b6cd-3b48278ca8be'
+                logo: 'https://firebasestorage.googleapis.com/v0/b/uc-cs-proj.appspot.com/o/ESSENTIALS%2FWeaveHuntLogo.png?alt=media&token=c5bad129-edfd-4499-9cdf-dbf3963880f3'
             }
             EmailJS.send('service_aj5o5yz', 'template_8ixnn2t', templateParams, 'user_gK0T1e9ZsggqRi3gZgoht')
             .then(function(response){
