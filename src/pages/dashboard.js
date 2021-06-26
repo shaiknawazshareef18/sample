@@ -39,6 +39,7 @@ function Dashboard(props) {
             setErrorMessage2('Please fill in all required forms')
             setOpenDialog(false)
         } else {
+            // eslint-disable-next-line
             selectedImages.map((image) => {
                 const uploadTask = storage.ref(category+'/'+image.name).put(image.file)
                 uploadTask.on("state_changed", 
