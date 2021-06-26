@@ -14,10 +14,9 @@ function Gallery(props){
                 url: doc.data().imageURL,
                 title: doc.data().title
             })))
-            console.log(images)
         })
         return () => unsubscribe
-    },[])
+    },[images, props.category])
 
     return(
         <>
