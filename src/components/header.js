@@ -103,7 +103,7 @@ function Header(props) {
               <ListItemIcon>
                 <PhotoLibraryIcon />
               </ListItemIcon>
-              <ListItemText>Gallery</ListItemText>
+              <ListItemText>Galleries</ListItemText>
             </ListItem>
           </List>
         </List>

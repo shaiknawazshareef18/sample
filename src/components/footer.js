@@ -14,7 +14,13 @@ function Footer(props) {
       <Typography className={classes.footerItem} color="secondary">
         Made by the UC CS Team
       </Typography>
-      <Typography className={classes.footerItem} color="secondary">
+      <Typography
+        className={classes.footerItem}
+        color="secondary"
+        style={{
+          fontWeight: 'lighter',
+        }}
+      >
         Vector images from Vecteezy.com
       </Typography>
       <Button color="primary" onClick={() => setOpenDialog(true)}>

@@ -20,6 +20,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import footer from './components/footer';
 
 const theme = createMuiTheme({
   palette: {
@@ -41,6 +42,7 @@ const theme = createMuiTheme({
 });
 
 const drawerWidth = '15rem';
+const footerHeight = '8rem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -104,20 +106,32 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingInline: '1rem',
-    // necessary for content to be below app bar
+    // necessary for content to be below app bar\
+    ...theme.mixins.toolbar,
   },
   content: {
     flex: 1,
+    position: 'relative',
+    paddingBottom: '8rem',
+    width: 'auto',
+    height: '100vh',
   },
-
+  container: {
+    padding: '1rem',
+  },
+  inline: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   footer: {
+    bottom: 0,
+    height: footerHeight,
     flexDirection: 'column',
-    justifyContent: 'flex-end',
     alignItems: 'center',
     padding: '1rem',
     background: '#000000',
     position: 'absolute',
-    width: '100%',
   },
   footerItem: {
     fontSize: '0.8rem',
@@ -145,13 +159,17 @@ function App() {
               setUser={setUser}
             />
 
-            <main className={classes.content}>
+            <div className={classes.content}>
               <Switch>
                 <Route
                   exact
                   path="/"
                   render={(props) => (
-                    <Home {...props} setCategory={setSelectedCategory} />
+                    <Home
+                      {...props}
+                      classes={classes}
+                      setCategory={setSelectedCategory}
+                    />
                   )}
                 />
                 <Route
@@ -208,7 +226,7 @@ function App() {
                 />
               </Switch>
               {!user && <Footer classes={classes} />}
-            </main>
+            </div>
           </div>
         </Router>
       </ThemeProvider>
