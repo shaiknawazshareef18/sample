@@ -1,63 +1,58 @@
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { Button, Grid, Typography, Dialog } from '@material-ui/core';
-import { DialogContent, DialogActions } from '@material-ui/core';
+import { DialogContent, DialogActions, Divider } from '@material-ui/core';
 
 function Footer(props) {
   const { history, classes } = props;
   const [openDialog, setOpenDialog] = useState(false);
   return (
-    <Grid container className={classes.footer}>
-      <Typography className={classes.footerItem} color="secondary">
-        © WeaveHub 2021
-      </Typography>
-      <Typography className={classes.footerItem} color="secondary">
-        Made by the UCCS Team
-      </Typography>
-      <Typography
-        className={classes.footerItem}
-        color="secondary"
-        style={{
-          fontWeight: 'lighter',
-        }}
-      >
-        Vector images from Vecteezy.com
-      </Typography>
-      <Button color="primary" onClick={() => setOpenDialog(true)}>
-        Admin Login
-      </Button>
+    <>
+      <Divider />
+      <Grid container className={classes.footer}>
+        <Typography className={classes.footerItem}>© WeaveHub 2021</Typography>
+        <Typography className={classes.footerItem}>
+          Made by the UCCS Team
+        </Typography>
+        <Typography className={classes.footerItem}>
+          Vector images from Vecteezy.com
+        </Typography>
+        <Button color="primary" onClick={() => setOpenDialog(true)}>
+          Admin Login
+        </Button>
 
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
-        <DialogContent>
-          <Typography gutterBottom variant="h3">
-            Note:
-          </Typography>
-          <Typography gutterBottom>
-            Please contact the administrator for instructions in opening the
-            admin page.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => setOpenDialog(false)}
-            color="primary"
-            variant="outlined"
-          >
-            Close
-          </Button>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() => {
-              setOpenDialog(false);
-              history.push('/contactUs');
-            }}
-          >
-            Contact Admin
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Grid>
+        <Dialog open={openDialog} onClose={() => setOpenDialog(false)}>
+          <DialogContent>
+            <Typography gutterBottom variant="h3">
+              Note:
+            </Typography>
+            <Typography gutterBottom>
+              Please contact the administrator for instructions in opening the
+              admin page.
+            </Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button
+              onClick={() => setOpenDialog(false)}
+              color="primary"
+              variant="outlined"
+            >
+              Close
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => {
+                setOpenDialog(false);
+                history.push('/contactUs');
+              }}
+            >
+              Contact Admin
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </Grid>
+    </>
     // <>
     // <Grid container justify="center" style={styles.background} >
     //     <Grid item>

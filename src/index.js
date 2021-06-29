@@ -21,7 +21,6 @@ import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import footer from './components/footer';
-
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -105,7 +104,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'flex-end',
     paddingInline: '1rem',
-    // necessary for content to be below app bar\
     ...theme.mixins.toolbar,
   },
   content: {
@@ -138,9 +136,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
     alignItems: 'center',
     padding: '1rem',
-    background: '#000000',
     position: 'relative',
-    width: 'auto',
   },
   footerItem: {
     fontSize: '0.8rem',
