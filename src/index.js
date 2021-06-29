@@ -42,7 +42,6 @@ const theme = createMuiTheme({
 });
 
 const drawerWidth = '15rem';
-const footerHeight = '8rem';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -111,10 +110,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flex: 1,
-    position: 'relative',
-    paddingBottom: '8rem',
     width: 'auto',
-    height: '100vh',
   },
   container: {
     padding: '1rem',
@@ -124,17 +120,48 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  spaceBetween: {
+    display: 'flex',
+    justifyContent: 'space-between',
+  },
+  spaceAround: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  centerContent: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   footer: {
     bottom: 0,
-    height: footerHeight,
+    display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     padding: '1rem',
     background: '#000000',
-    position: 'absolute',
+    position: 'relative',
+    width: 'auto',
   },
   footerItem: {
     fontSize: '0.8rem',
+  },
+  hasHorizontalScroll: {
+    overflowX: 'scroll',
+  },
+  aboutCardRoot: {
+    display: 'flex',
+    alignItems: 'center',
+    padding: '1rem',
+    margin: '1rem',
+    backgroundColor: `rgb(250, 250, 250, 0.75)`,
+    boxShadow: 'none',
+  },
+  aboutCardDetails: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  abourCardContent: {
+    flex: '0 1 auto',
   },
 }));
 
@@ -167,6 +194,7 @@ function App() {
                   render={(props) => (
                     <Home
                       {...props}
+                      theme={theme}
                       classes={classes}
                       setCategory={setSelectedCategory}
                     />
@@ -180,17 +208,17 @@ function App() {
                 <Route
                   exact
                   path="/about"
-                  render={(props) => <About {...props} />}
+                  render={(props) => <About classes={classes} {...props} />}
                 />
                 <Route
                   exact
                   path="/contactUs"
-                  render={(props) => <ContactUs {...props} />}
+                  render={(props) => <ContactUs classes={classes} {...props} />}
                 />
                 <Route
                   exact
                   path="/weavehunt"
-                  render={(props) => <WeaveHunt {...props} />}
+                  render={(props) => <WeaveHunt classes={classes} {...props} />}
                 />
                 <Route
                   exact
@@ -225,9 +253,9 @@ function App() {
                   render={(props) => <Error404 {...props} />}
                 />
               </Switch>
-              {!user && <Footer classes={classes} />}
             </div>
           </div>
+          {!user && <Footer classes={classes} />}
         </Router>
       </ThemeProvider>
     </>

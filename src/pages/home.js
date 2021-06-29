@@ -1,5 +1,6 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { sizing } from '@material-ui/system';
 
 import Logo from '../assets/logo_b.png';
 import BGImage from '../assets/mainContainerBG.png';
@@ -23,9 +24,27 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Divider,
 } from '@material-ui/core';
 
 const styles = {
+  bg: {
+    backgroundImage: `url(${BGImage})`,
+    padding: '1rem',
+    minHeight: '15rem',
+  },
+  noPadding: {
+    padding: 0,
+  },
+  noMargin: {
+    margin: 0,
+  },
+  gridContainer: {
+    justifyContent: 'space-around',
+  },
+  resetPosition: {
+    left: 0,
+  },
   secondaryContainer: {
     padding: '1%',
     marginTop: '2%',
@@ -33,16 +52,23 @@ const styles = {
   logo: {
     width: '10rem',
     height: '10rem',
+    marginRight: '1rem',
+  },
+  hasVerticalSpacer: {
+    marginTop: '1rem',
+  },
+  hasHorizontalScroll: {
+    overflowX: 'scroll',
   },
   cardDisplay: {
     cardMargin: {
-      margin: '1%',
+      margin: '1rem 0rem',
     },
     root: {
-      maxWidth: 345,
+      maxWidth: '14rem',
     },
     media: {
-      height: 200,
+      height: '15rem',
     },
   },
   containerTopMargin: {
@@ -65,18 +91,286 @@ function Home(props) {
   }
 
   return (
-    <div className={(classes.inline, classes.container)}>
-      <div className={classes.inline}>
+    <div
+      className={(classes.inline, classes.container)}
+      style={styles.noPadding}
+    >
+      <div className={classes.inline} style={styles.bg}>
         <img src={Logo} style={styles.logo} />
         <div>
           <Typography variant="h2" color="primary">
             <b>WEAVE</b>hub
           </Typography>
-          <Typography variant="h5">
+          <Typography>
             An online repository for the preservation of Cordilleran Weaving
-            Artifacts.
+            Artifacts
           </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            size="small"
+            onClick={() => {
+              history.push('/about');
+            }}
+            style={styles.hasVerticalSpacer}
+          >
+            Learn more
+          </Button>
         </div>
+      </div>
+      <Divider />
+      <Container
+        className={classes.centerContent}
+        style={styles.hasVerticalSpacer}
+      >
+        <Typography variant="h2" color="primary">
+          Ethnolinguistic Groups
+        </Typography>
+      </Container>
+      <Container className={classes.centerContent}>
+        <Typography align="center">
+          Most Weaving Artifacts can be differentiated by analyzing their unique
+          patterns. Different ethnolinguistic groups have different techniques
+          to produce weavings that show their respective identities and
+          cultures. There are seven (7) major ethnolinguistic groups when it
+          comes to Weaving Artifacts. These are the following:
+        </Typography>
+      </Container>
+
+      <div className={classes.spaceAround} style={styles.hasVerticalSpacer}>
+        <Grid container className={classes.inline} style={styles.gridContainer}>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Bontoc"
+                  image={BontocImg}
+                  title="Bontoc Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Bontoc
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Bontoc')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Ibaloi"
+                  image={IbaloiImg}
+                  title="Ibaloi Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Ibaloi
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Ibaloi')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Ifugao"
+                  image={IfugaoImg}
+                  title="Ifugao Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Ifugao
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Ifugao')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Isneg"
+                  image={IsnegImg}
+                  title="Isneg Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Isneg
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Isneg')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Kalinga"
+                  image={KalingaImg}
+                  title="Kalinga Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Kalinga
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Kalinga')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Kankanaey"
+                  image={KankanaeyImg}
+                  title="Kankanaey Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Kankanaey
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Kankanaey')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid item style={styles.cardDisplay.cardMargin}>
+            <Card style={styles.cardDisplay.root}>
+              <CardActionArea>
+                <CardMedia
+                  style={styles.cardDisplay.media}
+                  component="img"
+                  alt="Tinggian"
+                  image={TinggianImg}
+                  title="Tinggian Pattern"
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    Tinggian
+                  </Typography>
+
+                  <Typography variant="body2" component="p">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Nullam pharetra, lectus quis iaculis pretium, quam risus
+                    ornare quam.
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button
+                  size="small"
+                  color="primary"
+                  onClick={() => handleGallery('Tinggian')}
+                >
+                  View Gallery
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+        </Grid>
       </div>
     </div>
     // <>
@@ -129,262 +423,262 @@ function Home(props) {
     //     </Typography>
 
     //     <Typography gutterBottom align="center">
-    //       Most Weaving Artifacts can be differentiated by analyzing their unique
-    //       patterns. Different ethnolinguistic groups have different techniques
-    //       to produce weavings that show their respective identities and
-    //       cultures. There are seven (7) major ethnolinguistic groups when it
-    //       comes to Weaving Artifacts. These are the following:
+    // Most Weaving Artifacts can be differentiated by analyzing their unique
+    // patterns. Different ethnolinguistic groups have different techniques
+    // to produce weavings that show their respective identities and
+    // cultures. There are seven (7) major ethnolinguistic groups when it
+    // comes to Weaving Artifacts. These are the following:
     //     </Typography>
     //   </Container>
 
     //   <Grid container justify="center">
-    //     {/* Bontoc */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Bontoc"
-    //             image={BontocImg}
-    //             title="Bontoc Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Bontoc
-    //             </Typography>
+    // {/* Bontoc */}
+    // <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //   <Card style={styles.cardDisplay.root}>
+    //     <CardActionArea>
+    //       <CardMedia
+    //         style={styles.cardDisplay.media}
+    //         component="img"
+    //         alt="Bontoc"
+    //         image={BontocImg}
+    //         title="Bontoc Pattern"
+    //       />
+    //       <CardContent>
+    //         <Typography gutterBottom variant="h5" component="h2">
+    //           Bontoc
+    //         </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Bontoc')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //         <Typography variant="body2" component="p">
+    //           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //           Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //           ornare quam.
+    //         </Typography>
+    //       </CardContent>
+    //     </CardActionArea>
+    //     <CardActions>
+    //       <Button
+    //         size="small"
+    //         color="primary"
+    //         onClick={() => handleGallery('Bontoc')}
+    //       >
+    //         View Gallery
+    //       </Button>
+    //     </CardActions>
+    //   </Card>
+    // </Grid>
 
-    //     {/* Ibaloi */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Ibaloi"
-    //             image={IbaloiImg}
-    //             title="Ibaloi Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Ibaloi
-    //             </Typography>
+    // {/* Ibaloi */}
+    // <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //   <Card style={styles.cardDisplay.root}>
+    //     <CardActionArea>
+    //       <CardMedia
+    //         style={styles.cardDisplay.media}
+    //         component="img"
+    //         alt="Ibaloi"
+    //         image={IbaloiImg}
+    //         title="Ibaloi Pattern"
+    //       />
+    //       <CardContent>
+    //         <Typography gutterBottom variant="h5" component="h2">
+    //           Ibaloi
+    //         </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Ibaloi')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //         <Typography variant="body2" component="p">
+    //           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //           Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //           ornare quam.
+    //         </Typography>
+    //       </CardContent>
+    //     </CardActionArea>
+    //     <CardActions>
+    //       <Button
+    //         size="small"
+    //         color="primary"
+    //         onClick={() => handleGallery('Ibaloi')}
+    //       >
+    //         View Gallery
+    //       </Button>
+    //     </CardActions>
+    //   </Card>
+    // </Grid>
 
-    //     {/* Ifugao */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Ifugao"
-    //             image={IfugaoImg}
-    //             title="Ifugao Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Ifugao
-    //             </Typography>
+    // {/* Ifugao */}
+    // <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //   <Card style={styles.cardDisplay.root}>
+    //     <CardActionArea>
+    //       <CardMedia
+    //         style={styles.cardDisplay.media}
+    //         component="img"
+    //         alt="Ifugao"
+    //         image={IfugaoImg}
+    //         title="Ifugao Pattern"
+    //       />
+    //       <CardContent>
+    //         <Typography gutterBottom variant="h5" component="h2">
+    //           Ifugao
+    //         </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Ifugao')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //         <Typography variant="body2" component="p">
+    //           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //           Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //           ornare quam.
+    //         </Typography>
+    //       </CardContent>
+    //     </CardActionArea>
+    //     <CardActions>
+    //       <Button
+    //         size="small"
+    //         color="primary"
+    //         onClick={() => handleGallery('Ifugao')}
+    //       >
+    //         View Gallery
+    //       </Button>
+    //     </CardActions>
+    //   </Card>
+    // </Grid>
 
-    //     {/* Isneg */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Isneg"
-    //             image={IsnegImg}
-    //             title="Isneg Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Isneg
-    //             </Typography>
+    //   {/* Isneg */}
+    //   <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //     <Card style={styles.cardDisplay.root}>
+    //       <CardActionArea>
+    //         <CardMedia
+    //           style={styles.cardDisplay.media}
+    //           component="img"
+    //           alt="Isneg"
+    //           image={IsnegImg}
+    //           title="Isneg Pattern"
+    //         />
+    //         <CardContent>
+    //           <Typography gutterBottom variant="h5" component="h2">
+    //             Isneg
+    //           </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Isneg')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //           <Typography variant="body2" component="p">
+    //             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //             Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //             ornare quam.
+    //           </Typography>
+    //         </CardContent>
+    //       </CardActionArea>
+    //       <CardActions>
+    //         <Button
+    //           size="small"
+    //           color="primary"
+    //           onClick={() => handleGallery('Isneg')}
+    //         >
+    //           View Gallery
+    //         </Button>
+    //       </CardActions>
+    //     </Card>
     //   </Grid>
+    // </Grid>
 
     //   <Grid container justify="center">
-    //     {/* Kalinga */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Kalinga"
-    //             image={KalingaImg}
-    //             title="Kalinga Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Kalinga
-    //             </Typography>
+    // {/* Kalinga */}
+    // <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //   <Card style={styles.cardDisplay.root}>
+    //     <CardActionArea>
+    //       <CardMedia
+    //         style={styles.cardDisplay.media}
+    //         component="img"
+    //         alt="Kalinga"
+    //         image={KalingaImg}
+    //         title="Kalinga Pattern"
+    //       />
+    //       <CardContent>
+    //         <Typography gutterBottom variant="h5" component="h2">
+    //           Kalinga
+    //         </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Kalinga')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //         <Typography variant="body2" component="p">
+    //           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //           Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //           ornare quam.
+    //         </Typography>
+    //       </CardContent>
+    //     </CardActionArea>
+    //     <CardActions>
+    //       <Button
+    //         size="small"
+    //         color="primary"
+    //         onClick={() => handleGallery('Kalinga')}
+    //       >
+    //         View Gallery
+    //       </Button>
+    //     </CardActions>
+    //   </Card>
+    // </Grid>
 
-    //     {/* Kankanaey */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Kankanaey"
-    //             image={KankanaeyImg}
-    //             title="Kankanaey Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Kankanaey
-    //             </Typography>
+    // {/* Kankanaey */}
+    // <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //   <Card style={styles.cardDisplay.root}>
+    //     <CardActionArea>
+    //       <CardMedia
+    //         style={styles.cardDisplay.media}
+    //         component="img"
+    //         alt="Kankanaey"
+    //         image={KankanaeyImg}
+    //         title="Kankanaey Pattern"
+    //       />
+    //       <CardContent>
+    //         <Typography gutterBottom variant="h5" component="h2">
+    //           Kankanaey
+    //         </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Kankanaey')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //         <Typography variant="body2" component="p">
+    //           Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //           Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //           ornare quam.
+    //         </Typography>
+    //       </CardContent>
+    //     </CardActionArea>
+    //     <CardActions>
+    //       <Button
+    //         size="small"
+    //         color="primary"
+    //         onClick={() => handleGallery('Kankanaey')}
+    //       >
+    //         View Gallery
+    //       </Button>
+    //     </CardActions>
+    //   </Card>
+    // </Grid>
 
-    //     {/* Tinggian */}
-    //     <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
-    //       <Card style={styles.cardDisplay.root}>
-    //         <CardActionArea>
-    //           <CardMedia
-    //             style={styles.cardDisplay.media}
-    //             component="img"
-    //             alt="Tinggian"
-    //             image={TinggianImg}
-    //             title="Tinggian Pattern"
-    //           />
-    //           <CardContent>
-    //             <Typography gutterBottom variant="h5" component="h2">
-    //               Tinggian
-    //             </Typography>
+    //   {/* Tinggian */}
+    //   <Grid item xs={2} style={styles.cardDisplay.cardMargin}>
+    //     <Card style={styles.cardDisplay.root}>
+    //       <CardActionArea>
+    //         <CardMedia
+    //           style={styles.cardDisplay.media}
+    //           component="img"
+    //           alt="Tinggian"
+    //           image={TinggianImg}
+    //           title="Tinggian Pattern"
+    //         />
+    //         <CardContent>
+    //           <Typography gutterBottom variant="h5" component="h2">
+    //             Tinggian
+    //           </Typography>
 
-    //             <Typography variant="body2" component="p">
-    //               Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    //               Nullam pharetra, lectus quis iaculis pretium, quam risus
-    //               ornare quam.
-    //             </Typography>
-    //           </CardContent>
-    //         </CardActionArea>
-    //         <CardActions>
-    //           <Button
-    //             size="small"
-    //             color="primary"
-    //             onClick={() => handleGallery('Tinggian')}
-    //           >
-    //             View Gallery
-    //           </Button>
-    //         </CardActions>
-    //       </Card>
-    //     </Grid>
+    //           <Typography variant="body2" component="p">
+    //             Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    //             Nullam pharetra, lectus quis iaculis pretium, quam risus
+    //             ornare quam.
+    //           </Typography>
+    //         </CardContent>
+    //       </CardActionArea>
+    //       <CardActions>
+    //         <Button
+    //           size="small"
+    //           color="primary"
+    //           onClick={() => handleGallery('Tinggian')}
+    //         >
+    //           View Gallery
+    //         </Button>
+    //       </CardActions>
+    //     </Card>
     //   </Grid>
+    // </Grid>
 
     //   <Grid style={styles.creamBackground}>
     //     <Container>

@@ -12,7 +12,7 @@ function Footer(props) {
         © WeaveHub 2021
       </Typography>
       <Typography className={classes.footerItem} color="secondary">
-        Made by the UC CS Team
+        Made by the UCCS Team
       </Typography>
       <Typography
         className={classes.footerItem}
