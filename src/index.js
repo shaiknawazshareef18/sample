@@ -10,7 +10,7 @@ import Register from './pages/register';
 import About from './pages/about';
 import ContactUs from './pages/contactUs';
 import Error404 from './pages/error404';
-import Dashboard from './pages/dashboard3';
+import Dashboard from './pages/dashboard/';
 import Admin from './pages/admin';
 import Gallery from './pages/gallery';
 
