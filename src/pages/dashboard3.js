@@ -11,14 +11,15 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import {TableRow, Button, TextField, Box, TableBody, TableCell, Table, TableHead} from '@material-ui/core'
 import { Dialog, DialogTitle, DialogContent,DialogActions } from '@material-ui/core';
-import { firestore } from '../firebase';
+import { firestore, authentication } from '../firebase';
+import { useHistory } from 'react-router';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
   drawer: {
-    width: 240,
+    width: 170,
     flexShrink: 0,
   },
   drawerPaper: {
@@ -34,8 +35,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function ClippedDrawer(props) {
-  const classes = useStyles();
-  const [selected, setSelected] = useState(null);
+  const classes = useStyles()
+  const history = useHistory()
+  const [selected, setSelected] = useState(null)
   const [tickets, setTickets] = useState([])
   const [selectedImages, setSelectedImages] = useState([])
   const [openDialog, setOpenDialog] = useState(false)
@@ -63,7 +65,7 @@ export default function ClippedDrawer(props) {
   }
   function handleApprove() {
     firestore.collection('tickets').doc(chosenDocument).update({
-        adminID: props.user,
+        adminID: props.user.id,
         comments: placedComments,
         status: 'approved',
         administeredAt: new Date()
@@ -78,7 +80,7 @@ export default function ClippedDrawer(props) {
 
   function handleReject() {
     firestore.collection('tickets').doc(chosenDocument).update({
-        adminID: props.user,
+        adminID: props.user.id,
         comments: placedComments,
         status: 'rejected',
         administeredAt: new Date()
@@ -89,6 +91,12 @@ export default function ClippedDrawer(props) {
         setPlacedComments(null)
     })
     .catch((error)=>setErrorMessage(error.message))
+  }
+
+  function handleLogout() {
+    authentication.signOut().then(()=>{
+      history.push('/admin')
+    })
   }
 
   useEffect(()=> {
@@ -141,6 +149,13 @@ export default function ClippedDrawer(props) {
             <ListItem button key='Pending' onClick={()=>setSelected('pending')}>
               <ListItemIcon><InboxIcon /></ListItemIcon>
               <ListItemText primary='Pending Requests' />
+            </ListItem>
+          </List>
+          <Divider />
+          <List>
+            <ListItem button key='Logout' onClick={handleLogout}>
+              <ListItemIcon><InboxIcon /></ListItemIcon>
+              <ListItemText primary='Logout' />
             </ListItem>
           </List>
         </div>
@@ -266,13 +281,16 @@ export default function ClippedDrawer(props) {
             </DialogActions>
             </Dialog>
             </>
-
           )
         }
         {
           selected === null && (
             // UI Appear when nothing is Clicked
-            <Typography paragraph>Default Dashboard (Nothing is selected)</Typography>
+            <>
+            <Typography variant='h3'>
+              Welcome back {props.user.firstname} {props.user.middlename[0]}. {props.user.lastname}
+            </Typography>
+            </>
           )
         }
       </main>

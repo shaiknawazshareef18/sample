@@ -240,7 +240,7 @@ function App() {
                   exact
                   path="/admin/dashboard"
                   component={Dashboard}
-                  isAuthenticated={true}
+                  isAuthenticated={isAuthenticated}
                   user={user}
                 />
                 <Route

@@ -36,7 +36,14 @@ function Admin(props) {
                 firestore.collection('users').doc(uid).get().then((doc)=>{
                     if(doc.data().status === 'admin'){
                         props.setAuth(true)
-                        props.setUser(uid)
+                        props.setUser((
+                            {
+                                id: uid, 
+                                firstname: doc.data().firstname,
+                                middlename: doc.data().middlename,
+                                lastname: doc.data().lastname
+                            }
+                        ))
                         history.push('/admin/dashboard')
                     } else {
                         firestore.collection('reports').add({
