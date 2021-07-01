@@ -13,14 +13,15 @@ import Error404 from './pages/error404';
 import Dashboard from './pages/dashboard/';
 import Admin from './pages/admin';
 import Gallery from './pages/gallery';
-
 import WeaveHunt from './pages/weavehunt';
+import BetaTest from './pages/uploadBeta'
+import BetaRegister from './pages/uploadBeta/register'
+import BetaDashboard from './pages/uploadBeta/dashboard'
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
-
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import footer from './components/footer';
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -243,6 +244,25 @@ function App() {
                   isAuthenticated={isAuthenticated}
                   user={user}
                 />
+                {/* START WEAVEHUNT USER UPLOAD IMAGE TEST */}
+                <Route
+                  exact
+                  path="/weavehunt/test"
+                  render={(props) => <BetaTest setAuth={setIsAuthenticated} setUser={setUser} {...props} />}
+                />
+                <Route
+                  exact
+                  path="/weavehunt/test/register"
+                  render={(props) => <BetaRegister {...props} />}
+                />
+                 <ProtectedRoute
+                  exact
+                  path="/weavehunt/test/dashboard"
+                  component={BetaDashboard}
+                  isAuthenticated={isAuthenticated}
+                  user={user}
+                />
+                {/* END WEAVEHUNT USER UPLOAD IMAGE TEST */}
                 <Route
                   exact
                   path="*"
