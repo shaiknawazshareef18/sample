@@ -44,6 +44,7 @@ export default function ClippedDrawer(props) {
   function handleLogout() {
     authentication.signOut().then(()=>{
       history.push('/admin')
+      props.setUser(null)
     })
   }
   

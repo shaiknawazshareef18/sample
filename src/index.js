@@ -243,6 +243,7 @@ function App() {
                   component={Dashboard}
                   isAuthenticated={isAuthenticated}
                   user={user}
+                  setUser={setUser}
                 />
                 {/* START WEAVEHUNT USER UPLOAD IMAGE TEST */}
                 <Route
@@ -261,6 +262,7 @@ function App() {
                   component={BetaDashboard}
                   isAuthenticated={isAuthenticated}
                   user={user}
+                  setUser={setUser}
                 />
                 {/* END WEAVEHUNT USER UPLOAD IMAGE TEST */}
                 <Route
