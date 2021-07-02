@@ -26,7 +26,7 @@ import LogoHunt from '../assets/weaveHuntLogo.png';
 import { authentication } from '../firebase';
 
 function Header(props) {
-  const { classes, open, setOpen, history, user, setUser } = props;
+  const { classes, open, setOpen, history, user, setUser, setCategory } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -42,7 +42,6 @@ function Header(props) {
       setUser(null);
     });
   }
-
   return (
     <>
       <CssBaseline />
@@ -99,7 +98,7 @@ function Header(props) {
           </List>
           <Divider />
           <List item>
-            <ListItem button onClick={() => history.push('/')}>
+            <ListItem button onClick={() => history.push('/galleries')}>
               <ListItemIcon>
                 <PhotoLibraryIcon />
               </ListItemIcon>

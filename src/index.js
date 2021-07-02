@@ -13,6 +13,7 @@ import Error404 from './pages/error404';
 import Dashboard from './pages/dashboard/';
 import Admin from './pages/admin';
 import Gallery from './pages/gallery';
+import Galleries from './pages/galleries';
 import WeaveHunt from './pages/weavehunt';
 import BetaTest from './pages/uploadBeta';
 import BetaRegister from './pages/uploadBeta/register';
@@ -165,7 +166,8 @@ const useStyles = makeStyles((theme) => ({
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [visibility, setVisibility] = useState(true);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
   const classes = useStyles();
@@ -182,6 +184,7 @@ function App() {
               setOpen={setOpen}
               user={user}
               setUser={setUser}
+              setCategory={setSelectedCategory}
             />
 
             <div className={classes.content}>
@@ -194,6 +197,8 @@ function App() {
                       {...props}
                       theme={theme}
                       classes={classes}
+                      visibility={visibility}
+                      setVisibility={setVisibility}
                       setCategory={setSelectedCategory}
                     />
                   )}
@@ -222,7 +227,26 @@ function App() {
                   exact
                   path="/gallery"
                   render={(props) => (
-                    <Gallery {...props} category={selectedCategory} />
+                    <Gallery
+                      {...props}
+                      classes={classes}
+                      visibility={visibility}
+                      setVisibility={setVisibility}
+                      category={selectedCategory}
+                    />
+                  )}
+                />
+                <Route
+                  exact
+                  path="/galleries"
+                  render={(props) => (
+                    <Galleries
+                      classes={classes}
+                      visibility={visibility}
+                      setVisibility={setVisibility}
+                      setCategory={setSelectedCategory}
+                      {...props}
+                    />
                   )}
                 />
                 <Route

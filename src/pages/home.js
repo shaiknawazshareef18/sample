@@ -33,6 +33,11 @@ const styles = {
     padding: '1rem',
     minHeight: '15rem',
   },
+  logo: {
+    width: '10rem',
+    height: '10rem',
+    marginRight: '1rem',
+  },
   noPadding: {
     padding: 0,
   },
@@ -48,11 +53,6 @@ const styles = {
   secondaryContainer: {
     padding: '1%',
     marginTop: '2%',
-  },
-  logo: {
-    width: '10rem',
-    height: '10rem',
-    marginRight: '1rem',
   },
   hasVerticalSpacer: {
     marginTop: '1rem',
@@ -83,10 +83,11 @@ const styles = {
 };
 
 function Home(props) {
-  const { classes, history, setCategory } = props;
+  const { classes, history, setCategory, visibility, setVisibility } = props;
 
   function handleGallery(category) {
     setCategory(category);
+    setVisibility(visibility);
     history.push('/gallery');
   }
 

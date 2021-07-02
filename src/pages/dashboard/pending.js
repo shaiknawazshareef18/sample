@@ -114,48 +114,54 @@ function Pending(props) {
   return (
     <>
       <Grid container>
+        <Grid item xs={12}>
+          <Typography variant="h4" style={{ marginBottom: '1rem' }}>
+            Pending Requests
+          </Typography>
+        </Grid>
         <Grid item xs={6}>
-          <Typography variant="h4">Pending Requests</Typography>
-          <Table>
-            <TableHead>
-              <TableCell>
-                <b>Ticket</b>
-              </TableCell>
-              <TableCell>
-                <b>Date</b>
-              </TableCell>
-              <TableCell>
-                <b>Comments</b>
-              </TableCell>
-              <TableCell>
-                <b>Status</b>
-              </TableCell>
-              <TableCell>
-                <b>Actions</b>
-              </TableCell>
-            </TableHead>
-            <TableBody>
-              {tickets.map((ticket) => (
-                <TableRow key={ticket.id}>
-                  <TableCell>{ticket.ticketID}</TableCell>
-                  <TableCell>{ticket.date}</TableCell>
-                  <TableCell>{ticket.comments}</TableCell>
-                  <TableCell>{ticket.status}</TableCell>
-                  <TableCell>
-                    <Button
-                      onClick={() => {
-                        setOpenDialog3(true);
-                        setChosenDocument(ticket.id);
-                        setChosenTicket(ticket.ticketID);
-                      }}
-                    >
-                      Review
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+          <Paper style={{ height: '100%' }}>
+            <Table>
+              <TableHead>
+                <TableCell>
+                  <b>Ticket</b>
+                </TableCell>
+                <TableCell>
+                  <b>Date</b>
+                </TableCell>
+                <TableCell>
+                  <b>Comments</b>
+                </TableCell>
+                <TableCell>
+                  <b>Status</b>
+                </TableCell>
+                <TableCell>
+                  <b>Actions</b>
+                </TableCell>
+              </TableHead>
+              <TableBody>
+                {tickets.map((ticket) => (
+                  <TableRow key={ticket.id} style={{ overflowY: 'auto' }}>
+                    <TableCell>{ticket.ticketID}</TableCell>
+                    <TableCell>{ticket.date}</TableCell>
+                    <TableCell>{ticket.comments}</TableCell>
+                    <TableCell>{ticket.status}</TableCell>
+                    <TableCell>
+                      <Button
+                        onClick={() => {
+                          setOpenDialog3(true);
+                          setChosenDocument(ticket.id);
+                          setChosenTicket(ticket.ticketID);
+                        }}
+                      >
+                        Review
+                      </Button>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </Paper>
         </Grid>
         <Grid item xs={6} style={{ paddingLeft: '2rem' }}>
           <Paper>
