@@ -14,9 +14,9 @@ import Dashboard from './pages/dashboard/';
 import Admin from './pages/admin';
 import Gallery from './pages/gallery';
 import WeaveHunt from './pages/weavehunt';
-import BetaTest from './pages/uploadBeta'
-import BetaRegister from './pages/uploadBeta/register'
-import BetaDashboard from './pages/uploadBeta/dashboard'
+import BetaTest from './pages/uploadBeta';
+import BetaRegister from './pages/uploadBeta/register';
+import BetaDashboard from './pages/uploadBeta/dashboard';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
@@ -110,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
   content: {
     flex: 1,
     width: 'auto',
+    overflow: 'auto',
   },
   container: {
     padding: '1rem',
@@ -248,14 +249,20 @@ function App() {
                 <Route
                   exact
                   path="/weavehunt/test"
-                  render={(props) => <BetaTest setAuth={setIsAuthenticated} setUser={setUser} {...props} />}
+                  render={(props) => (
+                    <BetaTest
+                      setAuth={setIsAuthenticated}
+                      setUser={setUser}
+                      {...props}
+                    />
+                  )}
                 />
                 <Route
                   exact
                   path="/weavehunt/test/register"
                   render={(props) => <BetaRegister {...props} />}
                 />
-                 <ProtectedRoute
+                <ProtectedRoute
                   exact
                   path="/weavehunt/test/dashboard"
                   component={BetaDashboard}

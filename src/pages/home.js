@@ -123,7 +123,7 @@ function Home(props) {
         className={classes.centerContent}
         style={styles.hasVerticalSpacer}
       >
-        <Typography variant="h2" color="primary">
+        <Typography variant="h2" align="center" color="primary">
           Ethnolinguistic Groups
         </Typography>
       </Container>

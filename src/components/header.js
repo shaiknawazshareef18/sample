@@ -38,8 +38,8 @@ function Header(props) {
 
   function handleLogout() {
     authentication.signOut().then(() => {
-      history.push('../test')
-      setUser(null)
+      history.push('../test');
+      setUser(null);
     });
   }
 
