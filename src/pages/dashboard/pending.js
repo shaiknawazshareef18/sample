@@ -43,8 +43,12 @@ function Pending(props) {
   const [openDialog3, setOpenDialog3] = useState(false);
   const [chosenDocument, setChosenDocument] = useState(null);
   const [chosenTicket, setChosenTicket] = useState(null);
+  const [chosenImages, setChosenImages] = useState(null);
   const [placedComments, setPlacedComments] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
+  const monthNames = ["January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
 
   //  Dito images brace
 
@@ -62,7 +66,7 @@ function Pending(props) {
       .collection('tickets')
       .doc(chosenDocument)
       .update({
-        adminID: props.user.id,
+        adminID: props.id,
         comments: placedComments,
         status: 'approved',
         administeredAt: new Date(),
@@ -71,6 +75,7 @@ function Pending(props) {
         setOpenDialog2(false);
         setChosenDocument(null);
         setPlacedComments(null);
+        setChosenImages(null);
       })
       .catch((error) => setErrorMessage(error.message));
   }
@@ -80,7 +85,7 @@ function Pending(props) {
       .collection('tickets')
       .doc(chosenDocument)
       .update({
-        adminID: props.user.id,
+        adminID: props.id,
         comments: placedComments,
         status: 'rejected',
         administeredAt: new Date(),
@@ -89,6 +94,7 @@ function Pending(props) {
         setOpenDialog3(false);
         setChosenDocument(null);
         setPlacedComments(null);
+        setChosenImages(null);
       })
       .catch((error) => setErrorMessage(error.message));
   }
@@ -102,9 +108,13 @@ function Pending(props) {
           querySnapshot.docs.map((doc) => ({
             id: doc.id,
             status: doc.data().status,
-            date: doc.data().createdAt.toDate().toString(),
+            date:
+              monthNames[doc.data().createdAt.toDate().getMonth()] + " " +
+              doc.data().createdAt.toDate().getDate().toString() + ", " + 
+              doc.data().createdAt.toDate().getFullYear().toString(),
             ticketID: doc.data().ticketID,
             comments: doc.data().comments,
+            images: doc.data().images
           }))
         );
       });
@@ -149,9 +159,9 @@ function Pending(props) {
                     <TableCell>
                       <Button
                         onClick={() => {
-                          setOpenDialog3(true);
                           setChosenDocument(ticket.id);
                           setChosenTicket(ticket.ticketID);
+                          setChosenImages(ticket.images)
                         }}
                       >
                         Review
@@ -166,25 +176,41 @@ function Pending(props) {
         <Grid item xs={6} style={{ paddingLeft: '2rem' }}>
           <Paper>
             <Grid className={classes.root}>
-              <img src={ImageIcon} style={{ width: '100%', height: '100%' }} />
-              {/* <GridList cellHeight={160} className={classes.gridList} cols={3}>
-                {tileData.map((tile) => (
-                <GridListTile key={tile.img} cols={tile.cols || 1}>
-                  <img src={tile.img} alt={tile.title} />
-                </GridListTile>
-              ))}
-              </GridList> */}
+              {chosenImages && (
+                <GridList cellHeight={160} className={classes.gridList} cols={3}>
+                  {chosenImages.map((tile) => (
+                  <GridListTile key={tile} cols={1}>
+                    <img src={tile} alt={tile} />
+                  </GridListTile>
+                  ))}
+                </GridList>
+              )}
+              {!chosenImages && (
+                <Typography>Nothing is selected yet</Typography>
+              )}
             </Grid>
             <Grid container>
               <Grid item xs style={{ padding: '.5rem' }}>
-                <Button fullWidth variant="outlined" color="primary">
-                  Reject
-                </Button>
+                {chosenDocument && (
+                  <Button 
+                    fullWidth
+                    variant="outlined"
+                    color="primary"
+                    onClick={()=>setOpenDialog3(true)}>
+                    Reject
+                  </Button>
+                )}
               </Grid>
               <Grid item xs style={{ padding: '.5rem' }}>
-                <Button fullWidth variant="contained" color="primary">
-                  Accept
-                </Button>
+                {chosenDocument && (
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    onClick={()=>setOpenDialog2(true)}>
+                    Accept
+                  </Button>
+                )}
               </Grid>
             </Grid>
           </Paper>
@@ -217,6 +243,7 @@ function Pending(props) {
               setOpenDialog2(false);
               setChosenDocument(null);
               setPlacedComments(null);
+              setChosenImages(null);
             }}
           >
             Cancel
@@ -251,6 +278,7 @@ function Pending(props) {
               setOpenDialog3(false);
               setChosenDocument(null);
               setPlacedComments(null);
+              setChosenImages(null);
             }}
           >
             Cancel

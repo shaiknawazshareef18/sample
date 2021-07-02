@@ -42,43 +42,44 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function TabPanel(props) {
-  const { value, index } = props;
-
-  return (
-    <Grid container style={{ display: 'flex' }}>
-      <Grid item xs={12}>
-        <Paper
-          square
-          hidden={value !== index}
-          id={`simple-tabpanel-${index}`}
-          aria-labelledby={`simple-tab-${index}`}
-          style={{ padding: '2rem' }}
-        >
-          {value === 0 && <CreateAdmin />}
-          {value === 1 && <Upload />}
-          {value === 2 && <Pending user={props.user} />}
-          {value === 3 && (
-            // UI Appear when Member is Clicked
-            <Typography>This feature is currently unavailable</Typography>
-          )}
-        </Paper>
-      </Grid>
-    </Grid>
-  );
-}
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.any.isRequired,
-  value: PropTypes.any.isRequired,
-};
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
   const history = useHistory();
+  const userID = props.user.id 
+  const [value, setValue] = useState(2);
 
-  const [value, setValue] = React.useState(2);
+  function TabPanel(props) {
+    const { value, index } = props;
+  
+    return (
+      <Grid container style={{ display: 'flex' }}>
+        <Grid item xs={12}>
+          <Paper
+            square
+            hidden={value !== index}
+            id={`simple-tabpanel-${index}`}
+            aria-labelledby={`simple-tab-${index}`}
+            style={{ padding: '2rem' }}
+          >
+            {value === 0 && <CreateAdmin />}
+            {value === 1 && <Upload />}
+            {value === 2 && <Pending id={userID} />}
+            {value === 3 && (
+              // UI Appear when Member is Clicked
+              <Typography>This feature is currently unavailable</Typography>
+            )}
+          </Paper>
+        </Grid>
+      </Grid>
+    );
+  }
+  
+  TabPanel.propTypes = {
+    children: PropTypes.node,
+    index: PropTypes.any.isRequired,
+    value: PropTypes.any.isRequired,
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
