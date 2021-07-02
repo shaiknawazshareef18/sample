@@ -2,6 +2,7 @@ import React from 'react'
 import {Grid, Container, Typography, Button, Link} from '@material-ui/core'
 
 import BGImage from '../assets/mainContainerBG-large.png'
+import { LaptopWindowsSharp } from '@material-ui/icons'
 
 const styles = {
     background: {
@@ -29,7 +30,15 @@ function Error404(props) {
                             Hi there!
                         </Typography>
                         <Typography variant="h5">
-                            It looks like the page you are trying to access is not available. If you think that this shouldn't have happened,
+                            {window.location.href.charAt(31) === 'a' 
+                            && (
+                                "It seems like the account you are accessing has been logged out for security reasons. Try to loging in again for you to access it. "
+                            )}
+                            {window.location.href.charAt(31) !== 'a' 
+                            && (
+                                "It looks like the page you are trying to access is not available. "
+                            )}
+                            If you think that this shouldn't have happened,
                             please report it immediately by <Link style={styles.linkPointer} onClick={()=>history.push('/contactUs')}>contacting us</Link>.
                         </Typography>
                         <Button

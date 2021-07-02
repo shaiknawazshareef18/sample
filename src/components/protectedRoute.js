@@ -9,7 +9,7 @@ function ProtectedRoute({isAuthenticated:isAuth, component:Component, user:id, .
                 if(isAuth) {
                     return <Component user={id} {... rest} />
                 } else {
-                    return <Redirect to={{pathname:"/error404", state:{from:props.location}}} />
+                    return <Redirect to={{pathname:"/error404?a", state:{from:props.location}}} />
                 }
             }}
         />
