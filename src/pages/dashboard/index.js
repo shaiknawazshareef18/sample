@@ -105,7 +105,7 @@ export default function ClippedDrawer(props) {
           selected === 'upload' && (<Upload />)
         }
         {
-          selected === 'pending' && (<Pending />)
+          selected === 'pending' && (<Pending user={props.user} />)
         }
         {
           selected === null && (
