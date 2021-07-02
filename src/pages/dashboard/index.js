@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import Drawer from '@material-ui/core/Drawer';
-import Toolbar from '@material-ui/core/Toolbar';
+import PropTypes from 'prop-types';
+import Grid from '@material-ui/core/Grid';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
@@ -32,111 +34,93 @@ const useStyles = makeStyles((theme) => ({
     overflow: 'auto',
   },
   content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
+    alignContent: 'center',
+  },
+  container: {
+    height: '100%',
+    alignItems: 'flex-start',
   },
 }));
 
-const styles = {
-  container: {
-    height: '100%',
-  },
+function TabPanel(props) {
+  const { value, index } = props;
+
+  return (
+    <Grid container style={{ display: 'flex' }}>
+      <Grid item xs={12}>
+        <Paper
+          square
+          hidden={value !== index}
+          id={`simple-tabpanel-${index}`}
+          aria-labelledby={`simple-tab-${index}`}
+          style={{ padding: '2rem' }}
+        >
+          {value === 0 && <CreateAdmin />}
+          {value === 1 && <Upload />}
+          {value === 2 && <Pending user={props.user} />}
+          {value === 3 && (
+            // UI Appear when Member is Clicked
+            <Typography>This feature is currently unavailable</Typography>
+          )}
+        </Paper>
+      </Grid>
+    </Grid>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
 };
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
   const history = useHistory();
-  const [selected, setSelected] = useState(null);
+
+  const [value, setValue] = React.useState(2);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   function handleLogout() {
     authentication.signOut().then(() => {
       history.push('/admin');
+      props.setUser(null);
     });
   }
-
   return (
-    <div className={classes.root}>
-      <Paper elevation={1} style={styles.container}>
-        <List>
-          <ListItem
-            disabled
-            button
-            key="Member"
-            onClick={() => setSelected('member')}
-          >
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Member Accounts" />
-          </ListItem>
-          <ListItem button key="Admin" onClick={() => setSelected('admin')}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Create Admin Account" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button key="Upload" onClick={() => setSelected('upload')}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Upload Weave Image/s" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button key="Pending" onClick={() => setSelected('pending')}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Pending Requests" />
-          </ListItem>
-        </List>
-        <Divider />
-        <List>
-          <ListItem button key="Logout" onClick={handleLogout}>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Logout" />
-          </ListItem>
-        </List>
-      </Paper>
-      {/* <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <Toolbar />
-        <div className={classes.drawerContainer}>
-          
-        </div>
-      </Drawer> */}
-      <main className={classes.content}>
-        {selected === 'member' && (
-          // UI Appear when Member is Clicked
-          <Typography>
-            Hi renz, bkt mo eto na access luhhhh nka disable eto char lng
-            haahhahaha
+    <Grid container className={classes.root}>
+      <Grid item xs={12}>
+        <Paper square elevation={1}>
+          <Typography variant="h6" style={{ padding: '1rem' }}>
+            Logged in as {props.user.firstname} {props.user.middlename[0]}.{' '}
+            {props.user.lastname}
           </Typography>
-        )}
-        {selected === 'admin' && <CreateAdmin />}
-        {selected === 'upload' && <Upload />}
-        {selected === 'pending' && <Pending user={props.user} />}
-        {selected === null && (
-          // UI Appear when nothing is Clicked
-          <>
-            <Typography variant="h3">
-              Welcome back {props.user.firstname} {props.user.middlename[0]}.{' '}
-              {props.user.lastname}
-            </Typography>
-          </>
-        )}
-      </main>
-    </div>
+        </Paper>
+        <Grid item xs={12} style={{ padding: '.5rem' }}>
+          <Paper square>
+            <Tabs
+              value={value}
+              variant="fullWidth"
+              indicatorColor="primary"
+              textColor="primary"
+              onChange={handleChange}
+              aria-label="disabled tabs example"
+            >
+              <Tab label="Create Account" />
+              <Tab label="Upload Weave Images" />
+              <Tab label="Pending Requests" />
+              <Tab label="Member Accounts" disabled />
+            </Tabs>
+            <TabPanel value={value} index={0} />
+            <TabPanel value={value} index={1} />
+            <TabPanel value={value} index={2} />
+            <TabPanel value={value} index={3} />
+          </Paper>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 }
