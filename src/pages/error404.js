@@ -2,7 +2,6 @@ import React from 'react'
 import {Grid, Container, Typography, Button, Link} from '@material-ui/core'
 
 import BGImage from '../assets/mainContainerBG-large.png'
-import { LaptopWindowsSharp } from '@material-ui/icons'
 
 const styles = {
     background: {

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {Typography, Box, Button, TextField} from '@material-ui/core'
 import {Dialog, DialogTitle, DialogContent} from '@material-ui/core'
 import { firestore, storage } from '../../firebase'
-import firebase from 'firebase'
+import firebase from 'firebase/app'
 
 function Dashboard(props) {
 

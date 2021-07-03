@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import {
   Grid,
-  Divider,
   Typography,
   Button,
   TextField,
@@ -136,7 +135,7 @@ function Upload(props) {
             {selectedImages.map((image) => (
               <TableRow key={image.key}>
                 <Grid container alignItems="center">
-                  <img src={image.file} />
+                  <img src={image.file} alt={image.name} />
                   <Typography style={{ marginLeft: '.5rem' }}>
                     {image.name}
                   </Typography>

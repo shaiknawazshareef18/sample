@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
   Button,
   Typography,
   Divider,
-  Grid,
-  GridList,
-  GridListTile,
+  Grid
 } from '@material-ui/core';
 
 import Logo from '../assets/logo_b.png';
@@ -47,7 +45,7 @@ function Galleries(props) {
   return (
     <>
       <div className={classes.inline} style={styles.bg}>
-        <img src={Logo} style={styles.logo} />
+        <img src={Logo} style={styles.logo} alt="Weave Hub Logo"/>
         <Grid container>
           <Grid item xs={12}>
             <Typography variant="h5" color="primary">

@@ -3,17 +3,9 @@ import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import List from '@material-ui/core/List';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
-import Divider from '@material-ui/core/Divider';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import { makeStyles } from '@material-ui/core/styles';
-import { authentication } from '../../firebase';
-import { useHistory } from 'react-router';
 
 import CreateAdmin from './createAdmin';
 import Upload from './upload';
@@ -45,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ClippedDrawer(props) {
   const classes = useStyles();
-  const history = useHistory();
   const userID = props.user.id 
   const [value, setValue] = useState(2);
 
@@ -85,12 +76,6 @@ export default function ClippedDrawer(props) {
     setValue(newValue);
   };
 
-  function handleLogout() {
-    authentication.signOut().then(() => {
-      history.push('/admin');
-      props.setUser(null);
-    });
-  }
   return (
     <Grid container className={classes.root}>
       <Grid item xs={12}>

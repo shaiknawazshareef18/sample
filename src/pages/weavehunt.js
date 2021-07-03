@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
 import {
   Button,
   Link,
@@ -12,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { Dialog, DialogTitle, DialogContent } from '@material-ui/core';
 import ConstructionPeople from '../assets/underConstruction.png';
-import BGImage from '../assets/mainContainerBG-large.png';
 import BGImageTop from '../assets/mainContainerBG.png';
 import PrivacyPolicy from '../components/privacyPolicy';
 import EmailJS from 'emailjs-com';
@@ -104,7 +102,7 @@ function WeaveHunt(props) {
       style={styles.noPadding}
     >
       <div className={classes.inline} style={styles.bg}>
-        <img src={Logo} style={styles.logo} />
+        <img src={Logo} style={styles.logo} alt="Weave Hunt Logo" />
         <div>
           <Typography variant="h2" color="primary">
             <b>WEAVE</b>hunt

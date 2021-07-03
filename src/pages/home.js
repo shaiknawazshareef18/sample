@@ -1,11 +1,8 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
-import { sizing } from '@material-ui/system';
 
 import Logo from '../assets/logo_b.png';
 import BGImage from '../assets/mainContainerBG.png';
-import IndigenousPeople from '../assets/indigenousPeople.png';
-import SampleImages from '../components/imageListSample';
 import BontocImg from '../assets/weaves-samples/Bontoc.jpg';
 import IbaloiImg from '../assets/weaves-samples/Ibaloi.jpg';
 import IfugaoImg from '../assets/weaves-samples/Ifugao.jpg';
@@ -97,7 +94,7 @@ function Home(props) {
       style={styles.noPadding}
     >
       <div className={classes.inline} style={styles.bg}>
-        <img src={Logo} style={styles.logo} />
+        <img src={Logo} style={styles.logo} alt="Weave Hub Logo" />
         <div>
           <Typography variant="h2" color="primary">
             <b>WEAVE</b>hub

@@ -20,8 +20,6 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import { firestore } from '../../firebase';
 
-import ImageIcon from '../../assets/image symbol.png';
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -101,7 +99,7 @@ function Pending(props) {
       })
       .catch((error) => setErrorMessage(error.message));
   }
-
+  
   useEffect(() => {
     const unsubscribe = firestore
       .collection('tickets')
@@ -124,6 +122,7 @@ function Pending(props) {
         );
       });
     return () => unsubscribe;
+  //eslint-disable-next-line
   }, []);
 
   return (

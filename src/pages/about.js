@@ -118,7 +118,7 @@ function About(props) {
           conalei at nang jowabelles.
         </Typography>
         <Grid container justify="center" style={styles.hasVerticalSpacer}>
-          <img src={CITCSCHED} style={styles.citcschedlogo} />
+          <img src={CITCSCHED} style={styles.citcschedlogo} alt="UC-CITCS Logo"/>
         </Grid>
 
         <Typography variant="h2" align="center" color="primary">
