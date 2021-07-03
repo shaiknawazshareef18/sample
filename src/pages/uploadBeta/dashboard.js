@@ -1,6 +1,7 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {Typography, Box, Button, TextField} from '@material-ui/core'
 import {Dialog, DialogTitle, DialogContent} from '@material-ui/core'
+import {Table, TableHead, TableCell, TableBody, TableRow} from '@material-ui/core'
 import { firestore, storage } from '../../firebase'
 import firebase from 'firebase/app'
 
@@ -12,6 +13,10 @@ function Dashboard(props) {
     const [ticket, setTicket] = useState(null)
     const [openDialog, setOpenDialog] = useState(false)
     const [isUploading, setIsUploading] = useState(false)
+    const [myTickets, setMyTickets] = useState([])
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 
     function handleSelectedImages(event) {
         if(event.target.files){
@@ -78,9 +83,53 @@ function Dashboard(props) {
         return result
     }
 
+    useEffect(()=>{
+        const unsubscribe = firestore.collection('tickets').where('userID', '==', props.user.id)
+        .orderBy('createdAt', 'desc')
+        .onSnapshot((result)=>{
+            setMyTickets(
+                result.docs.map((doc)=>{
+                    if(doc.data().administeredAt === undefined){
+                        return ({
+                            key: doc.id,
+                            date:
+                            monthNames[doc.data().createdAt.toDate().getMonth()] + " " +
+                            doc.data().createdAt.toDate().getDate() + ", " + 
+                            doc.data().createdAt.toDate().getFullYear(),
+                            status: doc.data().status,
+                            ticketID: doc.data().ticketID,
+                            comments: doc.data().comments,
+                            category: doc.data().category,
+                            dateAdmin: "-"
+                        })
+                    } else {
+                        return ({
+                            key: doc.id,
+                            date:
+                            monthNames[doc.data().createdAt.toDate().getMonth()] + " " +
+                            doc.data().createdAt.toDate().getDate() + ", " + 
+                            doc.data().createdAt.toDate().getFullYear(),
+                            status: doc.data().status,
+                            ticketID: doc.data().ticketID,
+                            comments: doc.data().comments,
+                            category: doc.data().category,
+                            dateAdmin:
+                            monthNames[doc.data().administeredAt.toDate().getMonth()] + " " +
+                            doc.data().administeredAt.toDate().getDate() + ", " + 
+                            doc.data().administeredAt.toDate().getFullYear(),
+                        })
+                    }
+                })
+            )
+        })
+        console.log(myTickets)
+        return ()=> unsubscribe
+    // eslint-disable-next-line
+    },[])
+
     return(
         <>
-            <Typography variant='h2'>Hi {props.user.firstname}</Typography>
+            <Typography variant='h2' style={{margin: '5%'}}>Hi {props.user.firstname}</Typography>
 
             <Box m={5}>
                 <Typography variant='h6'>Upload Image</Typography>
@@ -109,6 +158,31 @@ function Dashboard(props) {
                     ))}
                 </>
             )}
+            </Box>
+
+            <Box m={5}>
+                <Table>
+                    <TableHead>
+                        <TableCell><b>Ticket Reference</b></TableCell>
+                        <TableCell><b>Date</b></TableCell>
+                        <TableCell><b>Category</b></TableCell>
+                        <TableCell><b>Comments</b></TableCell>
+                        <TableCell><b>Status</b></TableCell>
+                        <TableCell><b>Date Administered</b></TableCell>
+                    </TableHead>
+                    <TableBody>
+                        {myTickets.map((ticket)=>(
+                            <TableRow key={ticket.key}>
+                                <TableCell >{ticket.ticketID}</TableCell>
+                                <TableCell>{ticket.date}</TableCell>
+                                <TableCell>{ticket.category}</TableCell>
+                                <TableCell>{ticket.comments}</TableCell>
+                                <TableCell>{ticket.status}</TableCell>
+                                <TableCell>{ticket.dateAdmin}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
             </Box>
 
             <Dialog open={openDialog} onClose={()=>setOpenDialog(false)}>
