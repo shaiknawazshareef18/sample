@@ -10,6 +10,7 @@ function Gallery(props) {
   useEffect(() => {
     const unsubscribe = firestore
       .collection(props.category)
+      .orderBy('createdAt', 'desc')
       .onSnapshot((querySnapshot) => {
         setImages(
           querySnapshot.docs.map((doc) => ({
