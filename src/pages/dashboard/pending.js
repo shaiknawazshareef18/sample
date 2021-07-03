@@ -50,17 +50,6 @@ function Pending(props) {
     "July", "August", "September", "October", "November", "December"
   ];
 
-  //  Dito images brace
-
-  //   const tileData = [
-  //     {
-  //    img: image,
-  //         title: 'Image',
-  //        author: 'author',
-  //        cols: 2,
-  //     },
-  //    ];
-
   function handleApprove() {
     firestore
       .collection('tickets')
