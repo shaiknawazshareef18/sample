@@ -13,20 +13,20 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
 // Icons
-
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import PhotoLibraryIcon from '@material-ui/icons/PhotoLibrary';
-
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded';
 import InfoIcon from '@material-ui/icons/InfoRounded';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+
 import LogoS from '../assets/logo_s.png';
 import LogoHunt from '../assets/weaveHuntLogo.png';
 import { authentication } from '../firebase';
 
 function Header(props) {
-  const { classes, open, setOpen, history, user, setUser, setCategory } = props;
+  const { classes, open, setOpen, history, user, setUser, isAdmin } = props;
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -38,7 +38,11 @@ function Header(props) {
 
   function handleLogout() {
     authentication.signOut().then(() => {
-      history.push('../test');
+      if(isAdmin){
+        history.push('/admin');
+      } else {
+        history.push('../test');
+      }
       setUser(null);
     });
   }
@@ -121,12 +125,20 @@ function Header(props) {
             <ListItemText>Contact Us</ListItemText>
           </ListItem>
           {user && (
+            <>
+            <ListItem button onClick={()=>history.push('/admin/dashboard')}>
+              <ListItemIcon>
+                <SupervisorAccountIcon />
+              </ListItemIcon>
+              <ListItemText>Admin</ListItemText>
+            </ListItem>
             <ListItem button onClick={handleLogout}>
               <ListItemIcon>
-                <AccountCircleIcon />
+                <ExitToAppIcon />
               </ListItemIcon>
               <ListItemText>Logout</ListItemText>
             </ListItem>
+            </>
           )}
         </List>
       </Drawer>

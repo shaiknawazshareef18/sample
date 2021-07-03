@@ -44,6 +44,7 @@ function Admin(props) {
                                 lastname: doc.data().lastname
                             }
                         ))
+                        props.setAdmin(true)
                         history.push('/admin/dashboard')
                     } else {
                         firestore.collection('reports').add({

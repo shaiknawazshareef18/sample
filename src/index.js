@@ -170,6 +170,7 @@ function App() {
   const [visibility, setVisibility] = useState(true);
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
+  const [adminStatus, setAdminStatus] = useState(false)
   const classes = useStyles();
 
   return (
@@ -185,6 +186,7 @@ function App() {
               user={user}
               setUser={setUser}
               setCategory={setSelectedCategory}
+              isAdmin={adminStatus}
             />
 
             <div className={classes.content}>
@@ -257,6 +259,7 @@ function App() {
                       setAuth={setIsAuthenticated}
                       setUser={setUser}
                       user={user}
+                      setAdmin={setAdminStatus}
                       {...props}
                     />
                   )}
