@@ -44,6 +44,8 @@ function Pending(props) {
   const [chosenDocument, setChosenDocument] = useState(null);
   const [chosenTicket, setChosenTicket] = useState(null);
   const [chosenImages, setChosenImages] = useState(null);
+  const [chosenCategory, setChosenCategory] = useState(null);
+  const [chosenAuthor, setChosenAuthor] = useState(null);
   const [placedComments, setPlacedComments] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -61,10 +63,22 @@ function Pending(props) {
         administeredAt: new Date(),
       })
       .then(() => {
+        
+        chosenImages.map(async (image) => {
+          await firestore.collection(chosenCategory).add({
+            author: chosenAuthor,
+            createdAt: new Date(),
+            imageURL: image,
+            title: image,
+            userID: chosenAuthor
+          })
+          .catch((error)=>setErrorMessage(error.message))
+        })
         setOpenDialog2(false);
         setChosenDocument(null);
         setPlacedComments(null);
         setChosenImages(null);
+
       })
       .catch((error) => setErrorMessage(error.message));
   }
@@ -103,7 +117,9 @@ function Pending(props) {
               doc.data().createdAt.toDate().getFullYear().toString(),
             ticketID: doc.data().ticketID,
             comments: doc.data().comments,
-            images: doc.data().images
+            images: doc.data().images,
+            category: doc.data().category,
+            author: doc.data().userID
           }))
         );
       });
@@ -129,7 +145,7 @@ function Pending(props) {
                   <b>Date</b>
                 </TableCell>
                 <TableCell>
-                  <b>Comments</b>
+                  <b>Category</b>
                 </TableCell>
                 <TableCell>
                   <b>Status</b>
@@ -143,7 +159,7 @@ function Pending(props) {
                   <TableRow key={ticket.id} style={{ overflowY: 'auto' }}>
                     <TableCell>{ticket.ticketID}</TableCell>
                     <TableCell>{ticket.date}</TableCell>
-                    <TableCell>{ticket.comments}</TableCell>
+                    <TableCell>{ticket.category}</TableCell>
                     <TableCell>{ticket.status}</TableCell>
                     <TableCell>
                       <Button
@@ -151,6 +167,8 @@ function Pending(props) {
                           setChosenDocument(ticket.id);
                           setChosenTicket(ticket.ticketID);
                           setChosenImages(ticket.images)
+                          setChosenCategory(ticket.category)
+                          setChosenAuthor(ticket.author)
                         }}
                       >
                         Review
@@ -196,7 +214,8 @@ function Pending(props) {
                     fullWidth
                     variant="contained"
                     color="primary"
-                    onClick={()=>setOpenDialog2(true)}>
+                    onClick={()=>{
+                      setOpenDialog2(true)}}>
                     Accept
                   </Button>
                 )}
