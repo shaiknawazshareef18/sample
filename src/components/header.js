@@ -20,6 +20,7 @@ import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import ContactUsIcon from '@material-ui/icons/HeadsetMicRounded';
 import InfoIcon from '@material-ui/icons/InfoRounded';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import LogoS from '../assets/logo_s.png';
 import LogoHunt from '../assets/weaveHuntLogo.png';
@@ -124,21 +125,29 @@ function Header(props) {
             </ListItemIcon>
             <ListItemText>Contact Us</ListItemText>
           </ListItem>
-          {user && (
-            <>
+          {isAdmin && user && (
             <ListItem button onClick={()=>history.push('/admin/dashboard')}>
               <ListItemIcon>
                 <SupervisorAccountIcon />
               </ListItemIcon>
               <ListItemText>Admin</ListItemText>
             </ListItem>
+          )}
+          {!isAdmin && user && (
+            <ListItem button onClick={()=>history.push('/weavehunt/test/dashboard')}>
+              <ListItemIcon>
+                <AccountCircleIcon />
+              </ListItemIcon>
+              <ListItemText>Account</ListItemText>
+            </ListItem>
+          )}
+          {user && (
             <ListItem button onClick={handleLogout}>
               <ListItemIcon>
                 <ExitToAppIcon />
               </ListItemIcon>
               <ListItemText>Logout</ListItemText>
             </ListItem>
-            </>
           )}
         </List>
       </Drawer>
