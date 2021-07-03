@@ -6,9 +6,14 @@ import {
   Button,
   TextField,
   TableRow,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
 } from '@material-ui/core';
+import {storage, firestore} from '../../firebase'
 
-function Upload() {
+function Upload(props) {
   const [selectedImages, setSelectedImages] = useState([]);
   const [errorMessage2, setErrorMessage2] = useState(null);
   const [openDialog, setOpenDialog] = useState(false);
@@ -26,7 +31,50 @@ function Upload() {
     }
   }
 
+  function handleUpload() {
+    setErrorMessage2(null)
+    if(category === '' || author === '' || selectedImages.length <= 0){
+      setErrorMessage2('Please fill in all required forms')
+      setOpenDialog(false)
+    } else {
+      // eslint-disable-next-line
+      selectedImages.map((image) => {
+        const uploadTask = storage.ref(category+'/'+image.name).put(image.file)
+        uploadTask.on("state_changed", 
+          snapshot => {},
+          error => {
+            setErrorMessage2(error.message)
+          },
+          () => {
+            storage.ref(category)
+            .child(image.name)
+            .getDownloadURL()
+            .then(url => {
+              firestore.collection(category).add({
+                createdAt: new Date(),
+                imageURL: url,
+                author: author,
+                title: image.name,
+                userID: props.id
+              })
+              .then(() => {
+                  setOpenDialog(false)
+                  setSelectedImages([])
+                  setCategory('')
+                  setAuthor('')
+              })
+              .catch((error) => {
+                  setErrorMessage2(error.message)
+              })
+            })
+          }
+        )
+      })
+    }
+  }
+
   return (
+    <>
     <Grid container>
       <Grid item xs={12}>
         <Typography variant="h4" style={{ marginBottom: '1rem' }}>
@@ -109,6 +157,22 @@ function Upload() {
         </Button>
       </Grid>
     </Grid>
+
+    <Dialog open={openDialog} onClose={()=>setOpenDialog(false)}>
+      <DialogTitle>Note</DialogTitle>
+      <DialogContent>
+          Make sure that the images you are uploading are all images and is valid.
+          Double check the Category name and the Ticket Reference if it is correct.
+          All files that you have selected will be uploaded with no restrictions
+          so make srue that you as the admin will check it properly.
+          Are you sure you want to upload these images?
+      </DialogContent>
+      <DialogActions>
+          <Button onClick={()=>setOpenDialog(false)}>Cancel</Button>
+          <Button onClick={handleUpload}>Proceed</Button>
+      </DialogActions>
+    </Dialog>
+    </>
   );
 }
 

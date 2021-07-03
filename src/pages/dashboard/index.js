@@ -63,7 +63,7 @@ export default function ClippedDrawer(props) {
             style={{ padding: '2rem' }}
           >
             {value === 0 && <CreateAdmin />}
-            {value === 1 && <Upload />}
+            {value === 1 && <Upload id={userID}/>}
             {value === 2 && <Pending id={userID} />}
             {value === 3 && (
               // UI Appear when Member is Clicked
