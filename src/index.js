@@ -18,7 +18,7 @@ import WeaveHunt from './pages/weavehunt';
 import BetaTest from './pages/uploadBeta';
 import BetaRegister from './pages/uploadBeta/register';
 import BetaDashboard from './pages/uploadBeta/dashboard';
-
+import MLBeta from './pages/MLTest';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -299,6 +299,11 @@ function App() {
                   setUser={setUser}
                 />
                 {/* END WEAVEHUNT USER UPLOAD IMAGE TEST */}
+                <Route
+                  exact
+                  path="/cnn"
+                  render={(props) => <MLBeta {...props} />}
+                />
                 <Route
                   exact
                   path="*"
