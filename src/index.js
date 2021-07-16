@@ -19,6 +19,7 @@ import BetaTest from './pages/uploadBeta';
 import BetaRegister from './pages/uploadBeta/register';
 import BetaDashboard from './pages/uploadBeta/dashboard';
 import MLBeta from './pages/MLTest';
+import MLBeta2 from './pages/MLTest/weave';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { createMuiTheme, ThemeProvider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -303,6 +304,11 @@ function App() {
                   exact
                   path="/cnn"
                   render={(props) => <MLBeta {...props} />}
+                />
+                 <Route
+                  exact
+                  path="/cnn2"
+                  render={(props) => <MLBeta2 {...props} />}
                 />
                 <Route
                   exact
