@@ -1,27 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
-import { Typography, Grid, GridList, GridListTile } from '@material-ui/core';
+import { Typography, Grid, GridList, GridListTile, Button } from '@material-ui/core';
 import { firestore } from '../firebase';
 
 function Gallery(props) {
   const { classes, visibility } = props;
   const [images, setImages] = useState([]);
+  const [lastDoc, setLastDoc] = useState(null)
+  const [noMoreData, setNoMoreData] = useState(false)
 
-  useEffect(() => {
-    const unsubscribe = firestore
+  useEffect(()=> {
+    const unsub = firestore
+    .collection(props.category)
+    .orderBy('createdAt', 'desc')
+    .limit(visibility ? 30 : 4)
+    .get()
+    .then((collections)=>{
+      setImages(collections.docs.map((doc) => ({
+        id: doc.id,
+        url: doc.data().imageURL,
+        title: doc.data().title,
+      })))
+      setLastDoc(collections.docs[collections.docs.length - 1])
+      console.log('XD')
+    })
+    return ()=> unsub
+  }, [props.category, visibility])
+
+  function loadMoreImages() {
+    if(lastDoc != null){
+      firestore
       .collection(props.category)
       .orderBy('createdAt', 'desc')
-      .onSnapshot((querySnapshot) => {
-        setImages(
-          querySnapshot.docs.map((doc) => ({
-            key: doc.id,
+      .startAfter(lastDoc)
+      .limit(22)
+      .get()
+      .then((collections)=>{
+        if(collections.size !== 0){
+          const newData = (collections.docs.map((doc) => ({
+            id: doc.id,
             url: doc.data().imageURL,
             title: doc.data().title,
-          }))
-        );
-      });
-    return () => unsubscribe;
-  }, [images, props.category]);
+          })))
+          setImages(prevData => [...prevData, ...newData])
+          setLastDoc(collections.docs[collections.docs.length - 1])
+        } else {
+          setNoMoreData(true)
+        }
+        console.log('XD')
+        
+      })
+    }
+  }
 
   return (
     <>
@@ -53,6 +83,14 @@ function Gallery(props) {
             ))}
           </GridList>
         </Grid>
+        {visibility && !noMoreData &&  
+          <Button 
+            variant='contained' 
+            color='primary'
+            onClick={loadMoreImages}
+            > See more images
+          </Button>}
+        {noMoreData && <Typography variant='h3'> No more Images to show </Typography>}
       </Grid>
     </>
   );
